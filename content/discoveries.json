@@ -1,0 +1,1254 @@
+{
+  "1-nombres-relatifs": {
+    "kind": "integers",
+    "title": "Le sous-sol n’est pas le point de départ zéro",
+    "story": "Tu es au niveau −4 d’un parking. L’ascenseur monte de 7 niveaux. Le rez-de-chaussée porte le numéro 0.",
+    "question": "À quel niveau arrives-tu ?",
+    "answer": 3,
+    "hints": [
+      "Combien de niveaux faut-il monter pour atteindre 0 ?",
+      "Après ces 4 niveaux, il reste encore une partie des 7 à parcourir."
+    ],
+    "reasoning": "Tu utilises 4 niveaux pour aller de −4 à 0. Il reste 3 niveaux à monter : tu arrives à 3.",
+    "symbols": "−4 + 7 = 3. Le premier nombre est la position ; +7 décrit le déplacement.",
+    "rule": "Un signe peut décrire une position ou un déplacement. Ajouter un nombre positif fait monter sur cet axe ; ajouter un négatif fait descendre.",
+    "pitfall": "Compter 4 + 7 suppose que tu pars à +4. Ici, le départ est de l’autre côté de zéro.",
+    "transfer": {
+      "question": "Sans ascenseur : combien vaut −6 + 2 ?",
+      "answer": -4,
+      "hint": "Pars de −6 et avance seulement de 2.",
+      "reasoning": "−6 → −5 → −4. Tu te rapproches de zéro sans encore l’atteindre."
+    },
+    "mistakes": [
+      {
+        "value": 11,
+        "message": "Tu as peut-être compté la distance du sous-sol comme une montée supplémentaire. Les 4 premiers niveaux servent à revenir à zéro, pas à partir de +4."
+      },
+      {
+        "value": -11,
+        "message": "Le niveau baisse quand on descend. Ici, l’ascenseur monte : ton résultat doit être supérieur à −4."
+      }
+    ],
+    "coach": "Place d’abord le point de départ. Ton déplacement rapproche-t-il de zéro, ou éloigne-t-il de zéro ?"
+  },
+  "1-priorites": {
+    "kind": "order_operations",
+    "title": "Trois lots, pas trois tickets de caisse",
+    "story": "Tu achètes un carnet à 2 € et 3 lots de stylos à 4 € le lot.",
+    "question": "Combien paies-tu au total, en euros ?",
+    "answer": 14,
+    "hints": [
+      "Que coûtent les trois lots ensemble ?",
+      "Le carnet est acheté une seule fois."
+    ],
+    "reasoning": "Les lots coûtent 3 × 4 = 12 €. Tu ajoutes une seule fois les 2 € du carnet : 14 €.",
+    "symbols": "2 + 3 × 4 = 14. Le produit 3 × 4 décrit un groupe qu’on calcule avant de l’ajouter.",
+    "rule": "Les parenthèses indiquent un groupe prioritaire ; viennent ensuite puissances, multiplications et divisions, puis additions et soustractions. À priorité égale, on lit de gauche à droite.",
+    "pitfall": "(2 + 3) × 4 décrit une autre commande : le 2 serait aussi multiplié par 4.",
+    "transfer": {
+      "question": "Calcule 5 + 2 × 6.",
+      "answer": 17,
+      "hint": "Quel groupe la multiplication décrit-elle ?",
+      "reasoning": "2 × 6 vaut 12 ; avec les 5 en plus, cela fait 17."
+    },
+    "mistakes": [
+      {
+        "value": 20,
+        "message": "Ce calcul répète aussi le prix du carnet quatre fois. Dans la commande, quel prix concerne les lots et quel prix n’apparaît qu’une fois ?"
+      }
+    ],
+    "coach": "Repère les groupes : quels nombres la multiplication relie-t-elle ? Des parenthèses changent-elles ces groupes ?"
+  },
+  "1-fractions-equivalentes": {
+    "kind": "equivalent_fractions",
+    "title": "Recouper sans recevoir plus de gâteau",
+    "story": "Tu as 2 parts d’un gâteau découpé en 3 parts égales. On recoupe chaque tiers en 2 morceaux égaux. La quantité de gâteau que tu possèdes ne change pas.",
+    "question": "Combien de petits morceaux possèdes-tu maintenant ?",
+    "answer": 4,
+    "hints": [
+      "Chacune de tes deux anciennes parts devient deux morceaux.",
+      "Le gâteau entier contient maintenant 6 morceaux ; tu en gardes la même proportion."
+    ],
+    "reasoning": "Tes 2 parts deviennent 2 × 2 = 4 morceaux. Le gâteau entier en contient 3 × 2 = 6 : quatre sixièmes, c’est toujours deux tiers.",
+    "symbols": "2/3 = 4/6. Le nombre de morceaux change parce que leur taille change.",
+    "rule": "Multiplier le numérateur et le dénominateur par le même nombre non nul conserve la fraction. Diviser les deux par un même facteur non nul aussi.",
+    "pitfall": "Garder 2 morceaux sur 6 donnerait moins de gâteau : les nouveaux morceaux sont plus petits.",
+    "transfer": {
+      "question": "3/4 = ?/12. Quel numérateur manque ?",
+      "answer": 9,
+      "hint": "Chaque quart devient combien de douzièmes ?",
+      "reasoning": "Chaque quart devient 3 morceaux : les 3 quarts deviennent 9 douzièmes."
+    },
+    "mistakes": [
+      {
+        "value": 2,
+        "message": "Deux petits morceaux ne remplacent qu’une ancienne part. Combien faut-il de petits morceaux pour remplacer chacune de tes deux parts ?"
+      }
+    ],
+    "coach": "Imagine que chaque morceau est recoupé. Combien de nouveaux morceaux remplacent un ancien morceau ?"
+  },
+  "1-pourcentages": {
+    "kind": "percentage",
+    "title": "Une remise, c’est la partie qu’on enlève",
+    "story": "Un sac coûte 80 €. L’étiquette annonce une remise de 25 %, c’est-à-dire un quart du prix.",
+    "question": "Combien d’euros la remise te fait-elle économiser ?",
+    "answer": 20,
+    "hints": [
+      "Partager 100 en quatre parts donne 25 par part.",
+      "Partage aussi les 80 € en quatre parts égales."
+    ],
+    "reasoning": "Un quart de 80 €, c’est 20 €. C’est la somme retirée ; le prix à payer serait 60 €.",
+    "symbols": "25 % de 80 = (25/100) × 80 = 20.",
+    "rule": "Un pourcentage compare une part à un total ramené à 100. Pour prendre p % d’un total T, on calcule T × p/100.",
+    "pitfall": "Le montant économisé et le prix final sont deux questions différentes.",
+    "transfer": {
+      "question": "Combien vaut 15 % de 200 ?",
+      "answer": 30,
+      "hint": "10 % et 5 % peuvent être calculés séparément.",
+      "reasoning": "10 % de 200 vaut 20 ; 5 % vaut 10. Ensemble, 15 % vaut 30."
+    },
+    "mistakes": [
+      {
+        "value": 60,
+        "message": "60 € serait le prix après remise. On demande ici la partie retirée du prix de départ."
+      },
+      {
+        "value": 0.25,
+        "message": "0,25 est la part du prix, pas encore une somme en euros. Il faut appliquer cette part aux 80 €."
+      }
+    ],
+    "coach": "Cherches-tu une part, un pourcentage ou ce qui reste après une réduction ? Quel est le total de départ ?"
+  },
+  "1-perimetre": {
+    "kind": "perimeter",
+    "title": "Le ruban suit le bord",
+    "story": "Tu poses un ruban tout autour d’un cadre rectangulaire de 5 cm sur 3 cm, sans chevauchement.",
+    "question": "Quelle longueur de ruban faut-il, en cm ?",
+    "answer": 16,
+    "hints": [
+      "Il y a quatre côtés à suivre, pas deux.",
+      "Deux côtés mesurent 5 cm et deux mesurent 3 cm."
+    ],
+    "reasoning": "En suivant le bord, tu parcours 5 + 3 + 5 + 3 = 16 cm.",
+    "symbols": "P = 2 × (5 + 3) = 16 cm. P désigne la longueur totale du contour.",
+    "rule": "Le périmètre additionne les longueurs du bord. Pour un rectangle de côtés L et l : P = 2(L + l).",
+    "pitfall": "L × l compte une surface ; un ruban mesure une longueur.",
+    "transfer": {
+      "question": "Quel est le périmètre d’un rectangle de 7 cm sur 2 cm ?",
+      "answer": 18,
+      "hint": "Fais le tour des quatre côtés.",
+      "reasoning": "7 + 2 + 7 + 2 = 18 cm."
+    },
+    "mistakes": [
+      {
+        "value": 15,
+        "message": "5 × 3 compterait des carrés à l’intérieur du cadre. Le ruban doit-il couvrir l’intérieur ou suivre le bord ?"
+      },
+      {
+        "value": 8,
+        "message": "Tu as peut-être suivi deux côtés. Il faut encore revenir au point de départ par les deux autres."
+      }
+    ],
+    "coach": "Suis le contour avec le doigt. As-tu compté tous les côtés, avec une unité de longueur ?"
+  },
+  "1-angles-triangle": {
+    "kind": "triangle_angles",
+    "title": "Les trois coins forment un angle plat",
+    "story": "Découpe les trois coins d’un triangle tracé sur une feuille et rapproche leurs sommets : ils forment un angle plat de 180°. Deux coins mesurent 50° et 60°.",
+    "question": "Combien de degrés mesure le troisième coin ?",
+    "answer": 70,
+    "hints": [
+      "Les trois angles réunis doivent faire 180°.",
+      "Quelle place les deux angles connus occupent-ils déjà ?"
+    ],
+    "reasoning": "Les deux coins occupent 50 + 60 = 110°. Il reste 180 − 110 = 70°.",
+    "symbols": "50° + 60° + γ = 180°. La lettre γ nomme simplement l’angle qu’on cherche.",
+    "rule": "Dans un triangle du plan, les trois angles intérieurs totalisent 180°.",
+    "pitfall": "360° correspond à un tour complet ; les trois coins du triangle forment ici un demi-tour.",
+    "transfer": {
+      "question": "Un triangle a deux angles de 35° et 90°. Quel est le troisième ?",
+      "answer": 55,
+      "hint": "Retire du demi-tour les deux angles déjà connus.",
+      "reasoning": "180 − 35 − 90 = 55°."
+    },
+    "mistakes": [
+      {
+        "value": 250,
+        "message": "Tu as peut-être utilisé 360°. Les coins rassemblés forment une ligne droite, donc un demi-tour."
+      },
+      {
+        "value": 110,
+        "message": "C’est la place déjà occupée par les deux angles. On cherche la place restante."
+      }
+    ],
+    "coach": "Les trois angles proposés rempliraient-ils exactement un angle plat ?"
+  },
+  "fractions-meme-denominateur": {
+    "kind": "fractions",
+    "title": "Même gâteau, même taille de parts",
+    "story": "Un gâteau est découpé en 8 parts égales. Tu prends 2 parts, puis encore 3 parts de ce même gâteau.",
+    "question": "Quelle fraction du gâteau as-tu prise ? Écris par exemple 1/8.",
+    "answer": 0.625,
+    "hints": [
+      "Compte les parts prises sans redécouper le gâteau.",
+      "Une part reste un huitième, même après avoir pris plusieurs parts."
+    ],
+    "reasoning": "Tu as 5 parts, et chacune vaut 1/8 du gâteau. Cela fait 5/8.",
+    "symbols": "2/8 + 3/8 = (2 + 3)/8 = 5/8. Le 8 indique la taille des parts, le 5 leur nombre.",
+    "rule": "Pour additionner des fractions de même dénominateur, on compte des parts de même taille. Si les tailles diffèrent, il faut d’abord les exprimer avec un dénominateur commun.",
+    "pitfall": "Additionner les dénominateurs changerait la taille des parts alors qu’on n’a rien recoupé.",
+    "transfer": {
+      "question": "Calcule 3/7 + 2/7.",
+      "answer": 0.7142857142857143,
+      "hint": "Les parts restent des septièmes.",
+      "reasoning": "Trois septièmes et deux septièmes font cinq septièmes."
+    },
+    "mistakes": [
+      {
+        "value": 0.3125,
+        "message": "Le gâteau n’a pas été recoupé en 16. La taille d’une part est-elle devenue plus petite quand tu en as pris une autre ?"
+      }
+    ],
+    "coach": "Les parts ont-elles la même taille ? Si oui, qu’est-ce qui change : leur nombre ou leur taille ?"
+  },
+  "aire-rectangle": {
+    "kind": "geometry",
+    "title": "Combien de carreaux pour couvrir le sol ?",
+    "story": "Un sol rectangulaire mesure 4 m sur 3 m. Tu le couvres avec des carreaux de 1 m sur 1 m, sans espace ni chevauchement.",
+    "question": "Combien de carreaux faut-il ?",
+    "answer": 12,
+    "hints": [
+      "Une rangée de 4 m contient quatre carreaux.",
+      "Combien de rangées faut-il pour couvrir les 3 m restants ?"
+    ],
+    "reasoning": "Il y a trois rangées de quatre carreaux : 4 + 4 + 4 = 12. Chaque carreau couvre 1 m².",
+    "symbols": "A = 4 × 3 = 12 m². L’aire compte les unités de surface à l’intérieur.",
+    "rule": "Pour un rectangle, aire = longueur × largeur, avec des longueurs exprimées dans la même unité.",
+    "pitfall": "Faire le tour mesure le bord ; couvrir le sol mesure l’intérieur. Les unités sont respectivement m et m².",
+    "transfer": {
+      "question": "Quelle est l’aire d’un rectangle de 7 cm sur 2 cm, en cm² ?",
+      "answer": 14,
+      "hint": "Pense à deux rangées de six carrés.",
+      "reasoning": "Deux rangées de sept carrés couvrent 14 cm²."
+    },
+    "mistakes": [
+      {
+        "value": 14,
+        "message": "14 m ferait le tour du sol. Pour le couvrir, combien de rangées de carreaux faut-il ?"
+      }
+    ],
+    "coach": "Compte des rangées de carrés, pas les côtés du contour. Tes dimensions utilisent-elles la même unité ?"
+  },
+  "2-puissances": {
+    "kind": "powers",
+    "title": "Le petit nombre compte les facteurs",
+    "story": "Une boîte contient 2 × 2 jetons. Tu prends 2 × 2 × 2 boîtes identiques. Pour compter tous les jetons, tu multiplies ces deux produits.",
+    "question": "Combien de facteurs 2 comporte le produit complet ?",
+    "answer": 5,
+    "hints": [
+      "Écris tous les 2 à la suite, sans encore calculer leur produit.",
+      "La première partie apporte deux facteurs ; la seconde en apporte trois."
+    ],
+    "reasoning": "Le produit est 2 × 2 × 2 × 2 × 2 : cinq facteurs 2, donc 2⁵.",
+    "symbols": "2² × 2³ = 2⁵. L’exposant compte les répétitions de la base dans le produit.",
+    "rule": "Pour des puissances de même base : aᵐ × aⁿ = aᵐ⁺ⁿ. Une puissance de puissance a une autre structure : (aᵐ)ⁿ = aᵐⁿ.",
+    "pitfall": "Le résultat demandé peut être l’exposant, pas la valeur totale du produit.",
+    "transfer": {
+      "question": "3² × 3⁴ = 3ⁿ. Que vaut n ?",
+      "answer": 6,
+      "hint": "Compte deux facteurs 3, puis quatre autres.",
+      "reasoning": "Il y a six facteurs 3 : n = 6."
+    },
+    "mistakes": [
+      {
+        "value": 6,
+        "message": "Multiplier 2 par 3 correspondrait à répéter trois fois un groupe de deux facteurs. Ici, on assemble un groupe de deux et un groupe de trois."
+      },
+      {
+        "value": 32,
+        "message": "32 est le nombre de jetons. La question porte sur le nombre de facteurs 2 dans le produit."
+      }
+    ],
+    "coach": "Déplie les puissances en produits. Assembles-tu deux listes de facteurs, ou répètes-tu tout un groupe ?"
+  },
+  "2-proportionnalite": {
+    "kind": "proportion",
+    "title": "Retrouver le prix d’un seul",
+    "story": "Trois cahiers identiques coûtent 6 €. Il n’y a ni réduction par lot ni frais fixes.",
+    "question": "Combien coûtent cinq cahiers, en euros ?",
+    "answer": 10,
+    "hints": [
+      "Partage les 6 € entre les trois cahiers.",
+      "Une fois le prix d’un cahier trouvé, prends-le cinq fois."
+    ],
+    "reasoning": "Chaque cahier coûte 6 ÷ 3 = 2 €. Cinq cahiers coûtent donc 5 × 2 = 10 €.",
+    "symbols": "Prix = 2 × nombre de cahiers. Le coefficient 2 est le prix par cahier.",
+    "rule": "Une relation est proportionnelle quand multiplier une quantité par un facteur multiplie l’autre par le même facteur. Le passage par une unité permet de retrouver ce lien.",
+    "pitfall": "Ajouter deux cahiers ne signifie pas ajouter deux euros. Tout dépend du prix d’un cahier.",
+    "transfer": {
+      "question": "4 objets identiques coûtent 12 €. Au même prix unitaire, combien coûtent 7 objets ?",
+      "answer": 21,
+      "hint": "Quel prix correspond à un objet ?",
+      "reasoning": "12 ÷ 4 = 3 € par objet ; 7 × 3 = 21 €."
+    },
+    "mistakes": [
+      {
+        "value": 8,
+        "message": "Tu as peut-être ajouté 2 € parce qu’il y a deux cahiers de plus. Chaque cahier vaut-il vraiment 1 € ?"
+      }
+    ],
+    "coach": "Que vaut une seule unité ? Le prix unitaire reste-t-il le même dans tout l’énoncé ?"
+  },
+  "2-moyenne": {
+    "kind": "mean",
+    "title": "Répartir sans changer le total",
+    "story": "Trois élèves ont respectivement 2, 5 et 8 jetons. Ils mettent tout en commun et répartissent équitablement les jetons.",
+    "question": "Combien chacun reçoit-il ?",
+    "answer": 5,
+    "hints": [
+      "Combien y a-t-il de jetons dans le pot commun ?",
+      "Le total ne change pas ; il doit être partagé entre trois personnes."
+    ],
+    "reasoning": "Le pot contient 15 jetons. Répartis entre trois élèves, cela fait 5 chacun.",
+    "symbols": "Moyenne = (2 + 5 + 8)/3 = 5. C’est la valeur commune qui garderait le même total.",
+    "rule": "Pour une moyenne simple, on additionne toutes les valeurs puis on partage par leur nombre. Des valeurs avec des poids différents demandent une moyenne pondérée.",
+    "pitfall": "La somme décrit le pot entier ; la moyenne décrit la part égale de chacun.",
+    "transfer": {
+      "question": "Quelle est la moyenne de 4, 6 et 11 ?",
+      "answer": 7,
+      "hint": "Quel total faut-il répartir entre les trois valeurs ?",
+      "reasoning": "Le total est 21 ; trois parts égales donnent 7."
+    },
+    "mistakes": [
+      {
+        "value": 15,
+        "message": "Tu as trouvé le pot commun. Est-ce la quantité de chacun ou celle des trois élèves réunis ?"
+      }
+    ],
+    "coach": "Quel total conserves-tu ? En combien de parts égales faut-il le répartir ?"
+  },
+  "3-equations": {
+    "kind": "linear_equation",
+    "title": "Défaire une commande dans le bon ordre",
+    "story": "Trois carnets au même prix et 2 € de frais de livraison coûtent 17 € au total.",
+    "question": "Quel est le prix d’un carnet, en euros ?",
+    "answer": 5,
+    "hints": [
+      "Enlève d’abord ce qui ne paie aucun carnet : les frais fixes.",
+      "Le montant restant paie trois carnets identiques."
+    ],
+    "reasoning": "Sans les 2 € de frais, les trois carnets coûtent 15 €. Chacun coûte donc 15 ÷ 3 = 5 €.",
+    "symbols": "3x + 2 = 17 → 3x = 15 → x = 5. x représente le prix d’un carnet.",
+    "rule": "Pour ax + b = c avec a non nul, on défait d’abord l’ajout de b, puis la multiplication par a. Soustraire un nombre négatif revient à ajouter son opposé.",
+    "pitfall": "Le montant de tous les carnets n’est pas le prix d’un seul. Vérifie en reconstituant la commande.",
+    "transfer": {
+      "question": "Résous 4x − 3 = 13. Que vaut x ?",
+      "answer": 4,
+      "hint": "Quel total y avait-il avant de retirer 3 ? Puis partage-le en quatre.",
+      "reasoning": "On remonte à 16, puis on partage par 4 : x = 4. Vérification : 16 − 3 = 13."
+    },
+    "mistakes": [
+      {
+        "value": 15,
+        "message": "15 € paie les trois carnets. Combien revient à un seul ?"
+      },
+      {
+        "value": 5.666666666666667,
+        "message": "Les 17 € comprennent aussi la livraison. Si tu partages tout par trois, tu inclus les frais dans le prix des carnets."
+      }
+    ],
+    "coach": "Qu’a-t-on fait au nombre inconnu, dans quel ordre ? Pour revenir au départ, défais ces actions dans l’ordre inverse."
+  },
+  "3-distributivite": {
+    "kind": "distributivity",
+    "title": "Ce qu’il y a dans chaque sac",
+    "story": "Trois sacs contiennent chacun 2 carnets et 4 stylos. Tu ajoutes un carnet en dehors des sacs. On note x le prix d’un carnet ; chaque stylo vaut 1 €.",
+    "question": "Combien de carnets paies-tu en tout ?",
+    "answer": 7,
+    "hints": [
+      "Compte les carnets des trois sacs, puis celui à part.",
+      "Les stylos sont bien présents, mais ne sont pas des carnets."
+    ],
+    "reasoning": "Trois sacs de deux carnets donnent six carnets. Avec celui à part, cela fait sept. Les douze stylos coûtent 12 €.",
+    "symbols": "3(2x + 4) + x = 6x + 12 + x = 7x + 12. Le 7 devant x compte les carnets.",
+    "rule": "Développer a(bx + c), c’est répéter tout le contenu de la parenthèse : abx + ac. Réduire rassemble les termes de même nature.",
+    "pitfall": "Les nombres seuls et les coefficients de x ne comptent pas la même chose ; on ne les fusionne pas.",
+    "transfer": {
+      "question": "Dans 2(3x + 5) + 4x, quel est le coefficient de x ?",
+      "answer": 10,
+      "hint": "Compte uniquement les groupes de x, sans oublier ceux hors parenthèses.",
+      "reasoning": "Les deux groupes apportent 6x, puis on ajoute 4x : 10x. Le terme constant vaut 10 aussi, mais il ne change pas ce coefficient."
+    },
+    "mistakes": [
+      {
+        "value": 6,
+        "message": "Tu as compté les carnets des sacs. Le carnet posé à côté est-il compris ?"
+      },
+      {
+        "value": 19,
+        "message": "Tu as peut-être mélangé le nombre de carnets avec les euros des stylos. Le coefficient de x ne compte que les carnets."
+      }
+    ],
+    "coach": "Imagine plusieurs sacs identiques : tout leur contenu est répété. Quels termes comptent des x, et lesquels sont des nombres seuls ?"
+  },
+  "3-pythagore": {
+    "kind": "pythagoras",
+    "title": "Le raccourci n’est pas le tour du coin",
+    "story": "Tu avances de 3 m vers l’est puis de 4 m vers le nord. Un chemin direct relie ton départ à ton arrivée : c’est la diagonale du triangle rectangle.",
+    "question": "Quelle est la longueur du chemin direct, en mètres ?",
+    "answer": 5,
+    "hints": [
+      "Le détour mesure 7 m ; le chemin direct est plus court.",
+      "Pour un triangle rectangle, le carré de la diagonale vaut 3² + 4². Cherche la longueur dont le carré vaut cette somme."
+    ],
+    "reasoning": "Les carrés donnent 9 + 16 = 25. La longueur cherchée vaut 5, car 5 × 5 = 25. Les 7 m mesurent le détour.",
+    "symbols": "c² = 3² + 4² = 25, donc c = √25 = 5. c est l’hypoténuse, le côté opposé à l’angle droit.",
+    "rule": "Dans un triangle rectangle, le carré de l’hypoténuse égale la somme des carrés des deux autres côtés. Le résultat intermédiaire est un carré de longueur, pas encore la longueur.",
+    "pitfall": "Cette relation exige un angle droit. Additionner directement les longueurs compte le détour.",
+    "transfer": {
+      "question": "Un triangle rectangle a des côtés de l’angle droit de 6 et 8 cm. Quelle est son hypoténuse, en cm ?",
+      "answer": 10,
+      "hint": "Cherche le nombre dont le carré vaut 6² + 8².",
+      "reasoning": "36 + 64 = 100, et √100 = 10 cm."
+    },
+    "mistakes": [
+      {
+        "value": 7,
+        "message": "7 m serait ton trajet en deux segments. La diagonale coupe le coin : doit-elle mesurer autant ?"
+      },
+      {
+        "value": 25,
+        "message": "25 est le carré de la longueur. Quelle longueur multipliée par elle-même donne 25 ?"
+      }
+    ],
+    "coach": "Où est l’angle droit ? Cherches-tu l’hypoténuse ou un autre côté ? Ton dernier calcul donne-t-il une longueur ou son carré ?"
+  },
+  "3-fonction-affine": {
+    "kind": "affine",
+    "title": "Le compteur a déjà démarré",
+    "story": "Une location de vélo coûte 3 € au départ, puis 2 € pour chaque heure entière.",
+    "question": "Combien paies-tu pour 4 heures, en euros ?",
+    "answer": 11,
+    "hints": [
+      "Les quatre heures coûtent quatre fois le tarif horaire.",
+      "Ajoute le forfait de départ une seule fois."
+    ],
+    "reasoning": "Les heures coûtent 4 × 2 = 8 €. Avec les 3 € de départ : 11 €.",
+    "symbols": "f(x) = 2x + 3 ; f(4) = 11. x est la durée, f(x) est le prix produit par cette durée.",
+    "rule": "Une fonction affine ax + b associe à chaque entrée x une sortie : on multiplie par a puis on ajoute b. b est la sortie pour x = 0.",
+    "pitfall": "La lettre x désigne une place à remplir, pas une lettre qu’on additionne. Le modèle du vélo n’a de sens que pour des durées permises par le tarif.",
+    "transfer": {
+      "question": "Si f(x) = 3x − 2, que vaut f(−1) ?",
+      "answer": -5,
+      "hint": "Remplace chaque x par −1, en gardant le signe.",
+      "reasoning": "3 × (−1) − 2 = −3 − 2 = −5."
+    },
+    "mistakes": [
+      {
+        "value": 8,
+        "message": "Tu as peut-être payé les heures mais oublié le forfait de départ."
+      },
+      {
+        "value": 20,
+        "message": "Le forfait de 3 € est payé une seule fois, pas à chaque heure. Quelle partie se répète vraiment ?"
+      }
+    ],
+    "coach": "Quelle est l’entrée ? Remplace x par cette valeur, avec des parenthèses si elle est négative. Quel montant ou nombre fixe reste à ajouter ?"
+  },
+  "3-pente": {
+    "kind": "slope",
+    "title": "Comparer des montées de même longueur",
+    "story": "Sur un graphique, tu passes du point A(1 ; 2) au point B(4 ; 8). Tu avances horizontalement de 3 unités et tu montes de 6 unités.",
+    "question": "Combien montes-tu pour une unité d’avancée horizontale ?",
+    "answer": 2,
+    "hints": [
+      "La montée totale correspond à trois pas horizontaux.",
+      "Répartis cette montée entre les trois pas."
+    ],
+    "reasoning": "Les 6 unités de montée se répartissent sur 3 unités horizontales : 6 ÷ 3 = 2 par unité.",
+    "symbols": "m = (8 − 2)/(4 − 1) = 2. La pente compare la variation verticale à la variation horizontale.",
+    "rule": "Pour deux points d’une droite non verticale, la pente vaut Δy/Δx. Une pente négative décrit une descente quand x augmente.",
+    "pitfall": "Il faut comparer les variations, pas les coordonnées prises seules. Une droite verticale n’a pas de pente finie.",
+    "transfer": {
+      "question": "Une droite passe par A(0 ; 5) et B(2 ; 1). Quelle est sa pente ?",
+      "answer": -2,
+      "hint": "En allant vers la droite, montes-tu ou descends-tu ?",
+      "reasoning": "La variation verticale vaut −4 pour +2 horizontalement : la pente vaut −2."
+    },
+    "mistakes": [
+      {
+        "value": 0.5,
+        "message": "Ce rapport compte l’avancée par unité de montée. Ici, on demande la montée par unité d’avancée."
+      },
+      {
+        "value": 6,
+        "message": "6 est toute la montée. Combien correspond à une seule unité horizontale ?"
+      }
+    ],
+    "coach": "Calcule séparément les deux déplacements, en gardant le même sens. Combien de variation verticale correspond à une unité horizontale ?"
+  },
+  "3-frequences": {
+    "kind": "frequency",
+    "title": "Comparer des groupes de tailles différentes",
+    "story": "Dans une classe de 20 élèves, 5 viennent à vélo. Pour comparer avec une autre classe, imagine un groupe de 100 élèves avec exactement la même proportion.",
+    "question": "Combien sur 100 viendraient à vélo ?",
+    "answer": 25,
+    "hints": [
+      "Le groupe de 100 est cinq fois plus grand.",
+      "Le nombre de cyclistes doit être multiplié par le même facteur."
+    ],
+    "reasoning": "On passe de 20 à 100 en multipliant par 5. On passe donc de 5 cyclistes à 25 : la fréquence est 25 %.",
+    "symbols": "Fréquence = 5/20 = 0,25 = 25 %. Le pourcentage exprime une proportion sur 100.",
+    "rule": "Une fréquence est un effectif divisé par l’effectif total. Multiplier cette fraction par 100 donne son expression en pourcentage.",
+    "pitfall": "0,25 et 25 % expriment la même proportion, mais saisir 0,25 quand on demande le nombre de pourcents change la réponse.",
+    "transfer": {
+      "question": "8 élèves sur 40 viennent à pied. Quel est le pourcentage, sans le symbole % ?",
+      "answer": 20,
+      "hint": "Quel nombre sur 100 représente la même fraction que 8/40 ?",
+      "reasoning": "8/40 = 1/5 = 20/100, soit 20 %."
+    },
+    "mistakes": [
+      {
+        "value": 0.25,
+        "message": "Tu as la proportion décimale. La question demande combien cela ferait sur 100."
+      },
+      {
+        "value": 5,
+        "message": "5 est le nombre observé sur 20, pas encore le nombre correspondant sur 100."
+      }
+    ],
+    "coach": "Sur combien de personnes ou d’objets porte le comptage ? La réponse est-elle demandée en fraction ou en pourcentage ?"
+  },
+  "4-second-degre": {
+    "kind": "quadratic_roots",
+    "title": "Un produit qui s’éteint",
+    "story": "Un rectangle a une largeur x − 2 et une longueur x − 5. Pour x au moins égal à 5, ces longueurs sont possibles. Si un côté s’écrase jusqu’à zéro, l’aire devient nulle. Regardons aussi les solutions du calcul, au-delà de ce que le rectangle permet.",
+    "question": "Dans le calcul (x − 2)(x − 5) = 0, quelle est la plus grande solution réelle ?",
+    "answer": 5,
+    "hints": [
+      "Un produit vaut zéro si l’un de ses facteurs vaut zéro.",
+      "Quels nombres rendent respectivement x − 2 et x − 5 nuls ?"
+    ],
+    "reasoning": "x = 2 annule le premier facteur ; x = 5 annule le second. L’équation a ces deux solutions réelles et la plus grande est 5. Seule 5 correspond ici au rectangle aplati dans le domaine x ≥ 5.",
+    "symbols": "(x − 2)(x − 5) = 0 ⇔ x = 2 ou x = 5.",
+    "rule": "Un produit de nombres réels est nul si et seulement si au moins un facteur est nul. Cette idée s’applique une fois l’expression factorisée et le second membre égal à zéro.",
+    "pitfall": "Le « ou » permet plusieurs solutions ; les contraintes d’une situation concrète peuvent ensuite en exclure certaines.",
+    "transfer": {
+      "question": "Quelle est la plus grande solution de (x + 3)(x − 4) = 0 ?",
+      "answer": 4,
+      "hint": "Quel nombre annule chaque parenthèse ?",
+      "reasoning": "Les solutions sont −3 et 4. La plus grande est 4."
+    },
+    "mistakes": [
+      {
+        "value": 2,
+        "message": "2 annule bien un facteur. Mais la question demande la plus grande solution : y en a-t-il une autre ?"
+      },
+      {
+        "value": -5,
+        "message": "Pour annuler x − 5, faut-il mettre 5 ou −5 à la place de x ?"
+      }
+    ],
+    "coach": "Le produit est-il égal à zéro ? Quel nombre annule chaque facteur, et laquelle des solutions la question demande-t-elle ?"
+  },
+  "4-systemes": {
+    "kind": "system",
+    "title": "Deux informations sur les mêmes nombres",
+    "story": "Ana et Sami ont ensemble 14 jetons. Ana en a 4 de plus que Sami.",
+    "question": "Combien Ana a-t-elle de jetons ?",
+    "answer": 9,
+    "hints": [
+      "Retire les quatre jetons en plus d’Ana : les deux tas deviennent égaux.",
+      "Après ce retrait, le total est 10. Partage-le entre les deux, puis rends les jetons retirés à Ana."
+    ],
+    "reasoning": "Sans les quatre jetons supplémentaires, chacun aurait 5 jetons. Ana en a donc 9 et Sami 5 : ensemble 14, avec un écart de 4.",
+    "symbols": "x + y = 14 et x − y = 4. En additionnant les deux égalités, les y s’annulent : 2x = 18.",
+    "rule": "Un système cherche des valeurs qui rendent vraies toutes les équations en même temps. Combiner les égalités permet parfois d’éliminer une inconnue.",
+    "pitfall": "Satisfaire une seule des deux informations ne suffit pas. Vérifie toujours le total et l’écart.",
+    "transfer": {
+      "question": "x + y = 20 et x − y = 6. Que vaut x ?",
+      "answer": 13,
+      "hint": "Additionne les deux informations : que devient y ?",
+      "reasoning": "2x = 26, donc x = 13 et y = 7. Le total est 20 et l’écart est 6."
+    },
+    "mistakes": [
+      {
+        "value": 7,
+        "message": "Un partage égal donne bien 14 au total, mais respecte-t-il l’écart de quatre jetons ?"
+      },
+      {
+        "value": 10,
+        "message": "Ana aurait alors 10 jetons et Sami 4. Leur écart serait-il celui annoncé ?"
+      }
+    ],
+    "coach": "Tes valeurs respectent-elles les deux conditions ? Quelle combinaison des égalités ferait disparaître une inconnue ?"
+  },
+  "4-trigonometrie": {
+    "kind": "sine_ratio",
+    "title": "La hauteur prise par une rampe",
+    "story": "Une rampe droite de 5 m monte de 3 m verticalement. Elle forme avec le sol un angle α dans un triangle rectangle.",
+    "question": "Quelle part de la longueur de la rampe représente la montée verticale ? Donne une fraction ou un décimal.",
+    "answer": 0.6,
+    "hints": [
+      "Compare les 3 m de hauteur aux 5 m de rampe.",
+      "La part doit être inférieure à 1 puisque la hauteur est plus courte que la rampe."
+    ],
+    "reasoning": "La hauteur vaut 3/5 de la longueur de la rampe, soit 0,6. Ce rapport dépend de son inclinaison.",
+    "symbols": "sin(α) = côté opposé / hypoténuse = 3/5 = 0,6.",
+    "rule": "Dans un triangle rectangle, le sinus d’un angle aigu compare le côté opposé à l’hypoténuse. Agrandir le triangle conserve ce rapport.",
+    "pitfall": "Le sinus n’est pas l’angle : 0,6 n’est pas un nombre de degrés. Le côté opposé dépend de l’angle choisi.",
+    "transfer": {
+      "question": "Pour un angle aigu, le côté opposé mesure 6 et l’hypoténuse 10. Que vaut le sinus ?",
+      "answer": 0.6,
+      "hint": "Compare la hauteur à la longueur inclinée.",
+      "reasoning": "6/10 = 3/5 = 0,6 : agrandir la rampe n’a pas changé l’angle."
+    },
+    "mistakes": [
+      {
+        "value": 1.6666666666666667,
+        "message": "Tu compares la rampe à la hauteur. Le sinus demandé compare au contraire la hauteur à la rampe : peut-il dépasser 1 ici ?"
+      }
+    ],
+    "coach": "Repère l’angle, son côté opposé et l’hypoténuse. Le rapport que tu obtiens est-il possible pour un angle aigu ?"
+  },
+  "4-similitude": {
+    "kind": "similarity",
+    "title": "Agrandir toute la photo",
+    "story": "Une photo mesure 4 cm de large et 6 cm de haut. On l’agrandit sans la déformer ; sa largeur devient 12 cm.",
+    "question": "Quelle devient sa hauteur, en cm ?",
+    "answer": 18,
+    "hints": [
+      "Par quel facteur la largeur a-t-elle été multipliée ?",
+      "La hauteur doit être multipliée par ce même facteur."
+    ],
+    "reasoning": "La largeur est triplée. La hauteur doit aussi tripler : 6 × 3 = 18 cm.",
+    "symbols": "k = 12/4 = 3 ; nouvelle hauteur = 3 × 6.",
+    "rule": "Des figures semblables ont la même forme : les longueurs correspondantes sont multipliées par un même facteur positif k. Les aires, elles, sont multipliées par k².",
+    "pitfall": "Ajouter la même longueur aux deux dimensions déformerait généralement l’image.",
+    "transfer": {
+      "question": "Deux triangles sont semblables. Un côté passe de 5 à 15 cm. Un côté correspondant à 7 cm devient combien de cm ?",
+      "answer": 21,
+      "hint": "Quel facteur transforme 5 en 15 ?",
+      "reasoning": "Le facteur est 3 : 7 × 3 = 21 cm."
+    },
+    "mistakes": [
+      {
+        "value": 14,
+        "message": "Tu as peut-être ajouté 8 aux deux dimensions. La largeur a triplé : la hauteur a-t-elle aussi triplé ?"
+      },
+      {
+        "value": 54,
+        "message": "Multiplier par 3² convient à une aire. Cherches-tu une surface ou une longueur ?"
+      }
+    ],
+    "coach": "Quels côtés se correspondent ? Cherches-tu une longueur ou une aire, et quel facteur faut-il alors utiliser ?"
+  },
+  "4-sommet-parabole": {
+    "kind": "vertex",
+    "title": "Le milieu entre deux hauteurs égales",
+    "story": "La courbe y = x² − 6x + 8 est une parabole. Elle a la même hauteur 0 en x = 2 et en x = 4. Sa forme est symétrique.",
+    "question": "À quelle abscisse se trouve son point le plus bas ?",
+    "answer": 3,
+    "hints": [
+      "Le point le plus bas est sur l’axe de symétrie.",
+      "Où est le milieu entre les abscisses 2 et 4 ?"
+    ],
+    "reasoning": "Le milieu entre 2 et 4 est 3. En écrivant f(x) = (x − 3)² − 1, on voit que le carré est minimal pour x = 3.",
+    "symbols": "Pour ax² + bx + c, x du sommet = −b/(2a). Ici : −(−6)/(2 × 1) = 3.",
+    "rule": "Le sommet est le point où la parabole change de sens. Son abscisse vaut −b/(2a), pour a non nul. Si a > 0, c’est un minimum ; si a < 0, un maximum.",
+    "pitfall": "L’abscisse dit où se trouve le sommet ; l’ordonnée dit à quelle hauteur il se trouve.",
+    "transfer": {
+      "question": "Pour f(x) = x² − 8x + 10, quelle est l’abscisse du sommet ?",
+      "answer": 4,
+      "hint": "Repère a et b avec leurs signes.",
+      "reasoning": "a = 1 et b = −8 : −b/(2a) = 8/2 = 4."
+    },
+    "mistakes": [
+      {
+        "value": -1,
+        "message": "−1 est la hauteur du point le plus bas. La question demande sa position horizontale."
+      },
+      {
+        "value": 6,
+        "message": "Le 6 apparaît dans la formule, mais l’axe se situe au milieu des deux abscisses symétriques."
+      }
+    ],
+    "coach": "Cherches-tu la position du sommet ou sa hauteur ? Quels sont a et b, avec leurs signes ?"
+  },
+  "4-probabilites": {
+    "kind": "probability",
+    "title": "Ce qui peut sortir du sac",
+    "story": "Un sac contient 3 billes rouges et 2 bleues, indiscernables au toucher. Chaque bille a la même chance d’être tirée.",
+    "question": "Quelle est la probabilité de tirer une rouge ? Donne une fraction ou un décimal.",
+    "answer": 0.6,
+    "hints": [
+      "Combien de billes peuvent sortir au total ?",
+      "Combien de ces possibilités correspondent à une rouge ?"
+    ],
+    "reasoning": "Trois des cinq billes sont rouges. La probabilité vaut 3/5, soit 0,6.",
+    "symbols": "P(rouge) = nombre de billes rouges / nombre total de billes = 3/5.",
+    "rule": "Quand les issues élémentaires ont la même chance, la probabilité compare les cas favorables à tous les cas possibles. Elle se situe entre 0 et 1.",
+    "pitfall": "Comparer les rouges aux seules bleues donne un rapport entre couleurs, pas la part des rouges dans tous les tirages possibles.",
+    "transfer": {
+      "question": "Un dé équilibré a six faces numérotées de 1 à 6. Quelle est la probabilité d’obtenir un nombre pair ?",
+      "answer": 0.5,
+      "hint": "Liste les faces paires parmi toutes les faces.",
+      "reasoning": "2, 4 et 6 sont trois faces sur six : 3/6 = 1/2."
+    },
+    "mistakes": [
+      {
+        "value": 1.5,
+        "message": "3/2 compare rouges et bleues. Le dénominateur doit compter toutes les billes qui peuvent sortir ; une probabilité peut-elle dépasser 1 ?"
+      }
+    ],
+    "coach": "Quelles sont toutes les issues possibles ? Ont-elles la même chance ? Les cas favorables sont-ils comptés à l’intérieur de ce total ?"
+  },
+  "5-suite-arithmetique": {
+    "kind": "arithmetic_sequence",
+    "title": "Le compteur avance du même pas",
+    "story": "Tu as déjà économisé 10 € au début. À la fin de chaque semaine, tu ajoutes 3 €. On appelle semaine 0 le moment du départ.",
+    "question": "Combien as-tu à la fin de la semaine 4, en euros ?",
+    "answer": 22,
+    "hints": [
+      "Combien de versements ont lieu entre le départ et la fin de la quatrième semaine ?",
+      "Écris les montants aux semaines 0, 1, 2, 3 et 4."
+    ],
+    "reasoning": "Les montants sont 10, 13, 16, 19, 22. Il y a quatre ajouts de 3 € après les 10 € de départ.",
+    "symbols": "u₀ = 10 ; uₙ = 10 + 3n. n compte les passages depuis le départ.",
+    "rule": "Une suite arithmétique ajoute toujours la même raison r : uₙ₊₁ = uₙ + r. Si le départ est u₀, alors uₙ = u₀ + nr.",
+    "pitfall": "Le numéro du premier terme compte : commencer à u₁ au lieu de u₀ change le nombre de passages.",
+    "transfer": {
+      "question": "u₀ = 7 et la raison est 4. Que vaut u₃ ?",
+      "answer": 19,
+      "hint": "Compte trois ajouts à partir de u₀.",
+      "reasoning": "7 → 11 → 15 → 19 : u₃ = 7 + 3 × 4."
+    },
+    "mistakes": [
+      {
+        "value": 19,
+        "message": "19 € correspond à trois versements. La semaine 0 est le départ : combien de versements ont eu lieu à la fin de la semaine 4 ?"
+      }
+    ],
+    "coach": "Quel est l’indice du départ ? Compte les passages jusqu’au terme demandé, puis répète l’ajout."
+  },
+  "5-suite-geometrique": {
+    "kind": "geometric_sequence",
+    "title": "Chaque branche se dédouble",
+    "story": "Une animation commence avec 3 points. À chaque étape, chaque point est remplacé par deux points. Le départ porte le numéro 0.",
+    "question": "Combien de points vois-tu à l’étape 3 ?",
+    "answer": 24,
+    "hints": [
+      "Compte les points après une étape, puis après deux.",
+      "Le doublement s’applique à tout le groupe obtenu, pas seulement aux trois points de départ."
+    ],
+    "reasoning": "Le groupe passe de 3 à 6, puis à 12, puis à 24. On a multiplié par 2 trois fois.",
+    "symbols": "u₀ = 3 ; u₃ = 3 × 2³ = 24.",
+    "rule": "Une suite géométrique multiplie chaque terme par la même raison q : uₙ₊₁ = q × uₙ. Avec un départ u₀, on obtient uₙ = u₀qⁿ.",
+    "pitfall": "Un doublement n’ajoute pas toujours la même quantité. La quantité ajoutée grandit avec le groupe.",
+    "transfer": {
+      "question": "u₀ = 5 et q = 3. Que vaut u₂ ?",
+      "answer": 45,
+      "hint": "Applique deux fois le facteur 3 au groupe entier.",
+      "reasoning": "5 → 15 → 45, donc u₂ = 5 × 3²."
+    },
+    "mistakes": [
+      {
+        "value": 9,
+        "message": "3 + 3 × 2 ajouterait toujours deux points. Ici, chaque point existant se dédouble."
+      },
+      {
+        "value": 18,
+        "message": "Multiplier par 2 puis par 3 ne décrit pas trois doublements. Écris un facteur 2 pour chaque étape."
+      }
+    ],
+    "coach": "Ajoutes-tu une quantité fixe ou multiplies-tu le groupe entier ? Combien de multiplications séparent le départ du terme demandé ?"
+  },
+  "5-radians": {
+    "kind": "radians",
+    "title": "Mesurer une rotation avec le bord du cercle",
+    "story": "Sur un cercle de rayon 1, un tour complet suit une longueur de 2π. Un demi-tour suit π. On mesure ainsi les rotations en radians.",
+    "question": "Un quart de tour vaut kπ radians. Que vaut k ?",
+    "answer": 0.5,
+    "hints": [
+      "Un quart de tour est la moitié d’un demi-tour.",
+      "On demande le coefficient devant π, pas π lui-même."
+    ],
+    "reasoning": "Le quart de tour suit la moitié de l’arc d’un demi-tour : π/2 radians. Le coefficient k vaut donc 1/2.",
+    "symbols": "90° = π/2 rad ; k = 90/180 = 1/2.",
+    "rule": "Un angle en radians est le rapport longueur d’arc / rayon. Puisque 180° correspond à π radians, d degrés correspond à (d/180)π radians.",
+    "pitfall": "Les degrés et les radians décrivent la même rotation avec deux unités différentes. Le coefficient de π n’est pas la mesure complète.",
+    "transfer": {
+      "question": "120° = kπ radians. Que vaut k ?",
+      "answer": 0.6666666666666666,
+      "hint": "Compare 120° au demi-tour de 180°.",
+      "reasoning": "120/180 = 2/3, donc l’angle vaut 2π/3 radians."
+    },
+    "mistakes": [
+      {
+        "value": 90,
+        "message": "90 est la mesure en degrés. Ici, combien de demi-tours de π radians représente cette rotation ?"
+      },
+      {
+        "value": 2,
+        "message": "Deux fois π ferait un tour complet. Le quart de tour doit-il être plus grand ou plus petit qu’un demi-tour ?"
+      }
+    ],
+    "coach": "Compare ta rotation à un demi-tour : quelle fraction de 180° représente-t-elle ? On demande l’angle complet ou le coefficient de π ?"
+  },
+  "5-sinus-cercle": {
+    "kind": "unit_circle",
+    "title": "Le sinus suit la hauteur du point",
+    "story": "Un point tourne sur un cercle de rayon 1 centré en (0 ; 0). Il part de la droite et tourne dans le sens inverse des aiguilles d’une montre. Après trois quarts de tour, il est tout en bas.",
+    "question": "Quelle est sa coordonnée verticale à cet instant ?",
+    "answer": -1,
+    "hints": [
+      "Le centre a pour hauteur 0.",
+      "Le bas du cercle se trouve un rayon sous le centre."
+    ],
+    "reasoning": "Le bas du cercle est une unité sous le centre : sa coordonnée verticale vaut −1.",
+    "symbols": "Le point à l’angle 3π/2 est (0 ; −1), donc sin(3π/2) = −1.",
+    "rule": "Sur le cercle de rayon 1, cos(θ) est la coordonnée horizontale et sin(θ) la coordonnée verticale. Un tour complet ajoute 2π sans changer le point.",
+    "pitfall": "La longueur du rayon est toujours positive, mais une coordonnée verticale est négative sous le centre.",
+    "transfer": {
+      "question": "Quelle est la valeur de sin(π/2) ?",
+      "answer": 1,
+      "hint": "Un quart de tour depuis la droite mène en haut du cercle.",
+      "reasoning": "Le point du haut est (0 ; 1) : son sinus vaut 1."
+    },
+    "mistakes": [
+      {
+        "value": 1,
+        "message": "Le point est un rayon sous le centre, pas au-dessus. Quel signe traduit une hauteur sous zéro ?"
+      },
+      {
+        "value": 0,
+        "message": "0 est la coordonnée horizontale du point du bas. Le sinus lit quelle coordonnée ?"
+      }
+    ],
+    "coach": "Place le point sur le cercle. Lis-tu sa hauteur ou sa position horizontale ? De quel côté de zéro est cette coordonnée ?"
+  },
+  "5-produit-scalaire": {
+    "kind": "dot_product",
+    "title": "La part de l’effort qui pousse dans le bon sens",
+    "story": "Dans un repère orthonormé, une force F = (3 ; 4) newtons agit pendant un déplacement d = (2 ; 0) mètres. Le déplacement est seulement horizontal : la composante verticale de la force ne contribue pas au travail.",
+    "question": "Quel est le travail de cette force, en joules ?",
+    "answer": 6,
+    "hints": [
+      "Multiplie la force horizontale par le déplacement horizontal.",
+      "Que donne la contribution verticale quand le déplacement vertical est nul ?"
+    ],
+    "reasoning": "La contribution horizontale vaut 3 × 2 = 6. La contribution verticale vaut 4 × 0 = 0. Le total est 6 joules.",
+    "symbols": "F · d = 3 × 2 + 4 × 0 = 6.",
+    "rule": "Dans un repère orthonormé, (u₁ ; u₂) · (v₁ ; v₂) = u₁v₁ + u₂v₂. Le produit scalaire mesure comment deux vecteurs s’alignent ; ce n’est pas un vecteur.",
+    "pitfall": "Il faut associer les coordonnées du même axe. Un produit scalaire peut être négatif si les directions s’opposent suffisamment.",
+    "transfer": {
+      "question": "Calcule (2 ; −1) · (3 ; 4).",
+      "answer": 2,
+      "hint": "Associe horizontal avec horizontal, vertical avec vertical.",
+      "reasoning": "2 × 3 + (−1) × 4 = 6 − 4 = 2."
+    },
+    "mistakes": [
+      {
+        "value": 10,
+        "message": "La norme de la force vaut 5, mais toute la force n’agit pas dans la direction du déplacement. Quelle composante accompagne le mouvement horizontal ?"
+      }
+    ],
+    "coach": "Associe les coordonnées du même axe. Leurs contributions se renforcent-elles ou se compensent-elles ?"
+  },
+  "5-limite-amovible": {
+    "kind": "removable_limit",
+    "title": "S’approcher d’un trou dans la courbe",
+    "story": "Un calculateur utilise (x² − 4)/(x − 2). Pour x = 1,9 il affiche 3,9 ; pour x = 1,99, il affiche 3,99 ; pour x = 2,01, il affiche 4,01. À x = 2 exactement, il ne peut pas diviser par zéro.",
+    "question": "Vers quel nombre les résultats se rapprochent-ils quand x s’approche de 2 ?",
+    "answer": 4,
+    "hints": [
+      "Observe les résultats juste en dessous et juste au-dessus de 2.",
+      "x² − 4 se factorise en (x − 2)(x + 2). Pour x différent de 2, que reste-t-il après simplification ?"
+    ],
+    "reasoning": "Pour x ≠ 2, le calcul vaut x + 2. Les résultats s’approchent donc de 4. Le calcul d’origine reste pourtant non défini en 2.",
+    "symbols": "lim x→2 (x² − 4)/(x − 2) = lim x→2 (x + 2) = 4.",
+    "rule": "Une limite décrit ce que deviennent les valeurs au voisinage d’un point, sans exiger que la fonction y soit définie. Simplifier un facteur n’autorise pas à oublier les valeurs interdites.",
+    "pitfall": "0/0 n’est ni zéro ni une réponse : cette écriture dit que la substitution directe ne suffit pas.",
+    "transfer": {
+      "question": "Vers quelle valeur tend (x² − 9)/(x − 3) quand x tend vers 3 ?",
+      "answer": 6,
+      "hint": "Pour x ≠ 3, factorise le numérateur puis simplifie.",
+      "reasoning": "Le quotient vaut x + 3 hors de 3. Il tend donc vers 6."
+    },
+    "mistakes": [
+      {
+        "value": 0,
+        "message": "La substitution directe donne 0/0, pas 0. Que montrent les valeurs calculées près de 2 ?"
+      }
+    ],
+    "coach": "Cherches-tu la valeur au point ou le comportement près du point ? Peux-tu simplifier l’expression pour les x voisins autorisés ?"
+  },
+  "5-limite-infini": {
+    "kind": "rational_limit",
+    "title": "Ce qui reste quand les petits termes ne pèsent plus",
+    "story": "Deux compteurs affichent 3x² + 1 et 2x² + 5. Quand x grandit beaucoup, leurs petits ajouts fixes pèsent de moins en moins face aux termes en x².",
+    "question": "Vers quel nombre tend le rapport (3x² + 1)/(2x² + 5) quand x tend vers +∞ ?",
+    "answer": 1.5,
+    "hints": [
+      "Divise le haut et le bas par x².",
+      "Que deviennent 1/x² et 5/x² quand x grandit sans borne ?"
+    ],
+    "reasoning": "Le rapport devient (3 + 1/x²)/(2 + 5/x²). Les petites fractions tendent vers 0 : le rapport tend vers 3/2.",
+    "symbols": "lim x→+∞ (3x² + 1)/(2x² + 5) = 3/2.",
+    "rule": "Pour un quotient de polynômes de même degré, la limite à l’infini est le rapport des coefficients des termes de plus haut degré.",
+    "pitfall": "On ne « divise » pas deux infinis comme deux nombres. On compare les termes dominants. Si les degrés diffèrent, la conclusion change.",
+    "transfer": {
+      "question": "Quelle est la limite de (4x² + 7)/(5x² + 2) quand x tend vers +∞ ?",
+      "answer": 0.8,
+      "hint": "Après division par x², quels termes restent à la limite ?",
+      "reasoning": "Les fractions en 1/x² disparaissent à la limite ; il reste 4/5."
+    },
+    "mistakes": [
+      {
+        "value": 0.2,
+        "message": "1/5 compare seulement les ajouts fixes. Quand x est très grand, sont-ils dominants ?"
+      },
+      {
+        "value": 1,
+        "message": "Les deux compteurs grandissent sans borne, mais pas au même rythme : leurs termes principaux ont des coefficients différents."
+      }
+    ],
+    "coach": "Quels termes dominent quand x devient grand ? Les degrés en haut et en bas sont-ils les mêmes ?"
+  },
+  "5-derivees": {
+    "kind": "derivative",
+    "title": "La vitesse maintenant, pas la distance déjà faite",
+    "story": "Un mobile suit le modèle d(t) = t², en mètres, avec t en secondes. Entre 3 et 3,1 s, sa vitesse moyenne vaut 6,1 m/s ; entre 3 et 3,01 s, elle vaut 6,01 m/s.",
+    "question": "Vers quelle vitesse se rapprochent ces moyennes quand l’intervalle se resserre autour de 3 s ?",
+    "answer": 6,
+    "hints": [
+      "La distance à 3 s vaut 9 m, mais on compare ici des variations de distance par seconde.",
+      "Sur un intervalle de durée h après 3, la vitesse moyenne vaut ((3 + h)² − 9)/h = 6 + h."
+    ],
+    "reasoning": "Quand h se rapproche de 0, 6 + h se rapproche de 6. La vitesse à cet instant est donc 6 m/s.",
+    "symbols": "d′(3) = 6. Pour d(t) = t², d′(t) = 2t.",
+    "rule": "La dérivée mesure le taux de variation instantané : la limite de (f(a + h) − f(a))/h quand h tend vers 0, si cette limite existe. Pour axⁿ, la dérivée vaut an xⁿ⁻¹.",
+    "pitfall": "f(a) donne la valeur atteinte ; f′(a) dit à quelle vitesse cette valeur change. Leurs unités peuvent être différentes.",
+    "transfer": {
+      "question": "Pour f(x) = 3x², combien vaut f′(3) ?",
+      "answer": 18,
+      "hint": "Dérive d’abord la fonction, puis remplace x.",
+      "reasoning": "f′(x) = 6x, donc f′(3) = 18. Calculer f(3) donnerait 27 : c’est une autre question."
+    },
+    "mistakes": [
+      {
+        "value": 9,
+        "message": "9 m est la distance à 3 s. La question demande la vitesse : combien de mètres supplémentaires par seconde à cet instant ?"
+      }
+    ],
+    "coach": "Cherches-tu une valeur de la fonction ou son rythme de changement ? Dérive avant de remplacer la variable par le nombre demandé."
+  },
+  "5-tangente": {
+    "kind": "tangent",
+    "title": "Une droite qui imite le virage tout près",
+    "story": "La courbe y = x² passe par (2 ; 4). Tout près de ce point, elle a une pente de 4. On cherche la droite qui passe par ce point avec cette même pente.",
+    "question": "Pour cette droite y = 4x + p, que vaut p ?",
+    "answer": -4,
+    "hints": [
+      "Le point (2 ; 4) doit aussi être sur la droite.",
+      "Remplace x par 2 et y par 4 : quelle constante faut-il ajouter à 8 pour obtenir 4 ?"
+    ],
+    "reasoning": "Au point de contact, 4 = 4 × 2 + p. Il faut donc p = −4. La droite est y = 4x − 4.",
+    "symbols": "y = f(2) + f′(2)(x − 2) = 4 + 4(x − 2).",
+    "rule": "La tangente en a a la même valeur f(a) et la même pente f′(a) que la courbe au point de contact : y = f(a) + f′(a)(x − a). Elle donne une approximation locale.",
+    "pitfall": "L’ordonnée à l’origine est la hauteur de la droite en x = 0, pas celle du point de contact. Une tangente ne reste pas forcément proche loin de ce point.",
+    "transfer": {
+      "question": "Pour f(x) = x², la tangente en x = 3 est y = 6x + p. Que vaut p ?",
+      "answer": -9,
+      "hint": "Elle doit passer par (3 ; 9).",
+      "reasoning": "9 = 18 + p, donc p = −9."
+    },
+    "mistakes": [
+      {
+        "value": 4,
+        "message": "4 est ici la pente et la hauteur du point de contact. Mais avec y = 4x + 4, quelle hauteur obtiendrais-tu en x = 2 ?"
+      }
+    ],
+    "coach": "La droite proposée passe-t-elle par le point de contact avec la bonne pente ? On demande sa pente ou son ordonnée à l’origine ?"
+  },
+  "6-exponentielle": {
+    "kind": "exponential",
+    "title": "Le pourcentage agit sur un total qui change",
+    "story": "Une quantité vaut 100 au départ. À chaque période, elle augmente de 10 % de sa valeur du moment. Ce modèle applique toujours le même facteur 1,1.",
+    "question": "Quelle est sa valeur après deux périodes ?",
+    "answer": 121,
+    "hints": [
+      "Après une période, elle vaut 110.",
+      "La deuxième augmentation est 10 % de 110, pas 10 % de 100."
+    ],
+    "reasoning": "La première augmentation ajoute 10. La seconde ajoute 11, car la base a grandi. La quantité vaut 121.",
+    "symbols": "f(t) = 100 × 1,1ᵗ ; f(2) = 100 × 1,1² = 121.",
+    "rule": "Une évolution exponentielle de la forme A × qᵗ applique un facteur multiplicatif constant par unité de temps, avec q > 0. Pour une hausse de p %, q = 1 + p/100.",
+    "pitfall": "Un taux constant ne donne pas un ajout constant. L’exemple suppose que le même taux continue de s’appliquer.",
+    "transfer": {
+      "question": "Une quantité suit f(t) = 5 × 2ᵗ. Que vaut f(3) ?",
+      "answer": 40,
+      "hint": "Le facteur 2 agit trois fois sur les 5 du départ.",
+      "reasoning": "5 → 10 → 20 → 40, donc f(3) = 40."
+    },
+    "mistakes": [
+      {
+        "value": 120,
+        "message": "Tu as peut-être ajouté 10 deux fois. Le second 10 % porte sur quelle quantité : 100 ou 110 ?"
+      },
+      {
+        "value": 110,
+        "message": "C’est la valeur après une période. Il reste encore une augmentation à appliquer."
+      }
+    ],
+    "coach": "Le facteur s’applique-t-il une fois ou plusieurs fois ? La nouvelle période part du total déjà obtenu, pas du total initial."
+  },
+  "6-logarithmes": {
+    "kind": "logarithm",
+    "title": "Combien de doublements pour arriver là ?",
+    "story": "Une machine part de 1 et double son affichage à chaque pression : 1 → 2 → 4 → 8.",
+    "question": "Combien de pressions faut-il pour passer de 1 à 8 ?",
+    "answer": 3,
+    "hints": [
+      "Compte les flèches, pas les nombres affichés.",
+      "On cherche le nombre de multiplications par 2."
+    ],
+    "reasoning": "Il faut trois doublements : 2 × 2 × 2 = 8. Le logarithme nomme précisément cet exposant à retrouver.",
+    "symbols": "log₂(8) = 3 parce que 2³ = 8.",
+    "rule": "log_b(N) est l’exposant x tel que bˣ = N, pour N > 0, b > 0 et b ≠ 1. L’exposant peut être non entier ou négatif ; les pressions entières n’illustrent qu’un premier cas.",
+    "pitfall": "Le logarithme cherche un exposant. Ce n’est pas une division de N par la base.",
+    "transfer": {
+      "question": "Que vaut log₃(81) ?",
+      "answer": 4,
+      "hint": "Combien de facteurs 3 faut-il pour obtenir 81 ?",
+      "reasoning": "3 × 3 × 3 × 3 = 81, donc log₃(81) = 4."
+    },
+    "mistakes": [
+      {
+        "value": 4,
+        "message": "Tu as peut-être compté les quatre affichages, ou divisé 8 par 2. Combien de flèches de doublement séparent 1 et 8 ?"
+      },
+      {
+        "value": 8,
+        "message": "8 est la valeur atteinte. On cherche le nombre de doublements nécessaires pour l’atteindre."
+      }
+    ],
+    "coach": "Quelle puissance de la base redonnerait le nombre annoncé ? Compte les facteurs ou vérifie la puissance candidate."
+  },
+  "6-integrales": {
+    "kind": "integral",
+    "title": "Accumuler un débit qui augmente",
+    "story": "Un robinet a un débit de 2t litres par minute à l’instant t, entre 0 et 3 minutes. Le débit monte régulièrement de 0 à 6 L/min. Le graphe débit-temps forme un triangle sous la droite.",
+    "question": "Combien de litres ont coulé pendant ces trois minutes ?",
+    "answer": 9,
+    "hints": [
+      "Le débit n’est pas de 6 L/min pendant tout l’intervalle.",
+      "L’aire du triangle vaut base × hauteur ÷ 2 ; ici les unités L/min et min donnent des litres."
+    ],
+    "reasoning": "L’aire vaut 3 × 6 ÷ 2 = 9 litres. On additionne les petites quantités versées pendant chaque petit intervalle.",
+    "symbols": "∫₀³ 2t dt = [t²]₀³ = 9 − 0 = 9.",
+    "rule": "Une intégrale définie accumule des contributions. Si F est une primitive de f, alors ∫ₐᵇ f(t)dt = F(b) − F(a). Sous l’axe, les contributions sont négatives : une intégrale n’est pas toujours une aire géométrique.",
+    "pitfall": "Le débit final multiplié par toute la durée suppose à tort un débit constant égal au maximum.",
+    "transfer": {
+      "question": "Calcule ∫ de 1 à 3 de 2x dx.",
+      "answer": 8,
+      "hint": "La primitive x² mesure l’accumulation depuis 0. Retire la partie avant 1.",
+      "reasoning": "F(3) − F(1) = 9 − 1 = 8."
+    },
+    "mistakes": [
+      {
+        "value": 18,
+        "message": "18 litres supposerait 6 L/min dès le départ. Le robinet a-t-il débité autant pendant les premières minutes ?"
+      },
+      {
+        "value": 6,
+        "message": "6 L/min est le débit final, pas le volume accumulé. On cherche des litres, pas des litres par minute."
+      }
+    ],
+    "coach": "Quelle quantité accumules-tu et entre quelles bornes ? Pourquoi faut-il retirer l’accumulation déjà faite avant la borne de départ ?"
+  },
+  "6-probabilite-conditionnelle": {
+    "kind": "conditional_probability",
+    "title": "On a déjà réduit le groupe",
+    "story": "Une classe compte 30 élèves. Parmi eux, 12 pratiquent un sport, dont 3 jouent au tennis. Tu choisis au hasard un élève parmi les sportifs uniquement.",
+    "question": "Quelle est la probabilité qu’il joue au tennis ? Donne une fraction ou un décimal.",
+    "answer": 0.25,
+    "hints": [
+      "Les élèves non sportifs peuvent-ils être choisis ?",
+      "Compte les joueurs de tennis à l’intérieur du groupe encore possible."
+    ],
+    "reasoning": "Le choix porte seulement sur 12 élèves. Trois jouent au tennis : la probabilité est 3/12 = 1/4.",
+    "symbols": "P(tennis | sportif) = 3/12. La barre | se lit « sachant que ».",
+    "rule": "Conditionner revient à restreindre l’univers aux cas compatibles avec une information. P(A | B) = P(A ∩ B)/P(B), avec P(B) > 0.",
+    "pitfall": "Changer le groupe de référence change le dénominateur. P(A | B) et P(B | A) ne répondent pas à la même question.",
+    "transfer": {
+      "question": "Parmi 10 élèves portant des lunettes, 4 sont gauchers. On choisit au hasard parmi ces 10 élèves. Probabilité de choisir un gaucher ?",
+      "answer": 0.4,
+      "hint": "L’information « portant des lunettes » fixe déjà le groupe de référence.",
+      "reasoning": "4 cas favorables parmi 10 possibles : 4/10 = 0,4."
+    },
+    "mistakes": [
+      {
+        "value": 0.1,
+        "message": "3/30 serait la part des joueurs de tennis dans toute la classe. Mais le tirage porte-t-il encore sur toute la classe ?"
+      }
+    ],
+    "coach": "Que sait-on déjà sur la personne ou l’objet choisi ? Qui reste possible après cette information ?"
+  },
+  "6-combinaisons": {
+    "kind": "combinations",
+    "title": "Une équipe ne change pas quand on inverse les prénoms",
+    "story": "Quatre personnes, A, B, C et D, veulent former une équipe de deux. L’équipe AB est la même que BA.",
+    "question": "Combien d’équipes différentes peut-on former ?",
+    "answer": 6,
+    "hints": [
+      "Liste d’abord les équipes avec A, puis celles sans A.",
+      "A va avec B, C ou D ; B peut encore aller avec C ou D ; puis il reste C avec D."
+    ],
+    "reasoning": "Les équipes sont AB, AC, AD, BC, BD et CD : six équipes. Compter 4 × 3 donnerait chaque équipe dans les deux ordres.",
+    "symbols": "C(4,2) = (4 × 3)/2 = 6.",
+    "rule": "Une combinaison choisit un groupe sans ordre. Pour deux personnes distinctes parmi n, il y a n(n − 1)/2 paires. Pour k personnes : C(n,k) = n!/[k!(n − k)!].",
+    "pitfall": "Si les deux rôles sont différents, comme capitaine et adjoint, AB et BA ne sont plus le même choix.",
+    "transfer": {
+      "question": "Combien de duos sans rôles différents peut-on former parmi 5 personnes ?",
+      "answer": 10,
+      "hint": "Chaque premier choix a quatre partenaires, mais chaque duo est compté deux fois.",
+      "reasoning": "5 × 4 = 20 choix ordonnés ; en regroupant les deux ordres, il reste 10 duos."
+    },
+    "mistakes": [
+      {
+        "value": 12,
+        "message": "Tu as probablement compté AB et BA séparément. Les deux personnes ont-elles des rôles différents ?"
+      }
+    ],
+    "coach": "L’ordre change-t-il le groupe choisi ? As-tu compté plusieurs fois le même groupe sous des ordres différents ?"
+  },
+  "6-loi-binomiale": {
+    "kind": "binomial",
+    "title": "Un succès peut arriver à plusieurs places",
+    "story": "Tu lances trois fois une pièce équilibrée, avec des lancers indépendants. Tu veux exactement un pile. Il peut arriver au premier, au deuxième ou au troisième lancer.",
+    "question": "Quelle est la probabilité d’obtenir exactement un pile ? Donne une fraction ou un décimal.",
+    "answer": 0.375,
+    "hints": [
+      "Il y a huit suites de trois résultats, toutes aussi probables.",
+      "Parmi elles, repère PFF, FPF et FFP."
+    ],
+    "reasoning": "Chacune des trois suites favorables a une probabilité de 1/8. Au total : 3/8.",
+    "symbols": "P(X = 1) = C(3,1) × (1/2)¹ × (1/2)² = 3/8.",
+    "rule": "Une loi binomiale compte les succès dans n essais indépendants ayant la même probabilité p de succès. P(X = k) = C(n,k)pᵏ(1 − p)ⁿ⁻ᵏ.",
+    "pitfall": "Un ordre précis et « exactement k succès, peu importe leur place » sont deux événements différents. Sans indépendance et probabilité constante, ce modèle peut être inadapté.",
+    "transfer": {
+      "question": "Avec quatre lancers indépendants d’une pièce équilibrée, quelle est la probabilité d’avoir exactement un pile ?",
+      "answer": 0.25,
+      "hint": "Combien de places peut occuper le pile parmi les 16 suites possibles ?",
+      "reasoning": "Quatre suites favorables sur 16 : 4/16 = 1/4."
+    },
+    "mistakes": [
+      {
+        "value": 0.125,
+        "message": "1/8 correspond à une seule suite, par exemple PFF. Le pile est-il obligé d’arriver au premier lancer ?"
+      },
+      {
+        "value": 0.5,
+        "message": "Un lancer a une chance sur deux de donner pile. Ici, l’événement porte sur le nombre de piles dans trois lancers."
+      }
+    ],
+    "coach": "Combien d’ordres réalisent le nombre de succès demandé ? Les essais sont-ils indépendants, avec la même probabilité à chaque fois ?"
+  },
+  "6-loi-normale": {
+    "kind": "standardization",
+    "title": "Comparer une distance avec la bonne règle",
+    "story": "Une série de scores a pour moyenne 50 et pour écart-type 5. Ton score est 60. Pour te situer, on utilise l’écart-type comme unité d’écart à la moyenne.",
+    "question": "À combien d’écarts-types au-dessus de la moyenne te trouves-tu ?",
+    "answer": 2,
+    "hints": [
+      "Commence par mesurer l’écart entre 60 et 50.",
+      "Combien de pas de taille 5 rentrent dans cet écart ?"
+    ],
+    "reasoning": "Ton score est 10 points au-dessus de la moyenne. Cela représente deux pas de 5 points : le score centré réduit vaut 2.",
+    "symbols": "z = (X − μ)/σ = (60 − 50)/5 = 2.",
+    "rule": "Centrer retire la moyenne ; réduire divise par l’écart-type strictement positif. Si X suit une loi normale, ce changement d’échelle donne une loi normale de moyenne 0 et d’écart-type 1.",
+    "pitfall": "Un score z n’est pas une probabilité. Le calcul existe aussi hors d’une loi normale, mais ne rend pas automatiquement une distribution normale.",
+    "transfer": {
+      "question": "X = 42, μ = 50 et σ = 4. Que vaut z ?",
+      "answer": -2,
+      "hint": "Le score est-il au-dessus ou en dessous de la moyenne ?",
+      "reasoning": "L’écart est −8 ; divisé par 4, cela fait −2 écarts-types."
+    },
+    "mistakes": [
+      {
+        "value": 10,
+        "message": "10 est l’écart en points. Combien d’unités de 5 points représente-t-il ?"
+      },
+      {
+        "value": 0.4,
+        "message": "Tu as peut-être divisé par la variance 25. Notre unité de distance est l’écart-type, ici 5."
+      }
+    ],
+    "coach": "Mesure d’abord l’écart signé à la moyenne. Avec quelle taille de pas, σ ou σ², faut-il l’exprimer ?"
+  },
+  "6-optimisation": {
+    "kind": "optimization",
+    "title": "Le meilleur endroit, pas seulement la meilleure valeur",
+    "story": "Un rectangle a un périmètre fixé à 20 m. Si un côté mesure x, l’autre mesure 10 − x. Son aire est x(10 − x). Avec x = 4 ou x = 6, l’aire vaut 24 m² ; entre les deux, elle peut faire mieux.",
+    "question": "Quelle valeur de x donne la plus grande aire, en mètres ?",
+    "answer": 5,
+    "hints": [
+      "Le domaine est 0 < x < 10. Compare les rectangles de part et d’autre de 5.",
+      "L’aire s’écrit 25 − (x − 5)². Comment rendre le carré aussi petit que possible ?"
+    ],
+    "reasoning": "Le carré (x − 5)² est toujours positif ou nul. L’aire est donc au plus 25, atteinte pour x = 5 : le rectangle est un carré.",
+    "symbols": "A(x) = 10x − x² ; A′(x) = 10 − 2x. La dérivée est positive avant 5 et négative après.",
+    "rule": "Optimiser, c’est chercher où une quantité est la plus grande ou la plus petite sur un domaine. Une dérivée nulle fournit un candidat ; il faut vérifier les variations et, si elles appartiennent au domaine, les bornes.",
+    "pitfall": "Le meilleur x et la valeur maximale de la fonction sont différents. Une dérivée nulle ne prouve pas à elle seule un maximum.",
+    "transfer": {
+      "question": "Pour f(x) = −x² + 8x sur ℝ, quelle valeur de x donne le maximum ?",
+      "answer": 4,
+      "hint": "Cherche où la dérivée change de positive à négative.",
+      "reasoning": "f′(x) = −2x + 8 s’annule en 4 ; f augmente avant 4 et diminue après."
+    },
+    "mistakes": [
+      {
+        "value": 25,
+        "message": "25 m² est l’aire maximale. La question demande la longueur x qui permet de l’obtenir."
+      },
+      {
+        "value": 10,
+        "message": "Avec x = 10, l’autre côté vaudrait 0. Quel rectangle garderait une vraie surface ?"
+      }
+    ],
+    "coach": "Quelle quantité optimises-tu, sur quel domaine ? La question demande-t-elle où se trouve l’optimum ou combien il vaut ?"
+  },
+  "6-aire-entre-courbes": {
+    "kind": "area_between",
+    "title": "Compter seulement l’espace entre les deux",
+    "story": "Sur un graphique, les droites f(x) = 3x et g(x) = x partent de l’origine. Entre x = 0 et x = 2, la bande entre elles forme un triangle : à droite, l’écart vertical vaut 6 − 2 = 4.",
+    "question": "Quelle est l’aire de cette bande, en unités carrées ?",
+    "answer": 4,
+    "hints": [
+      "La bande a une base horizontale de 2 et une hauteur de 4.",
+      "On compte l’espace entre les deux droites, pas tout l’espace sous la plus haute."
+    ],
+    "reasoning": "L’aire du triangle vaut 2 × 4 ÷ 2 = 4. À chaque abscisse, la hauteur de la bande est 3x − x = 2x.",
+    "symbols": "A = ∫₀² (3x − x) dx = ∫₀² 2x dx = [x²]₀² = 4.",
+    "rule": "Quand f ≥ g sur [a,b], l’aire entre leurs courbes est ∫ₐᵇ (f − g)dx. Si les courbes se croisent, on découpe l’intervalle pour garder « dessus moins dessous » sur chaque morceau.",
+    "pitfall": "Une aire géométrique ne devient pas négative quand on inverse le nom des courbes ; c’est le signe du calcul qui signale le mauvais ordre.",
+    "transfer": {
+      "question": "Quelle est l’aire entre f(x) = 4x et g(x) = 2x sur [0 ; 3] ?",
+      "answer": 9,
+      "hint": "La hauteur de la bande vaut 2x. Quelle primitive permet de l’accumuler ?",
+      "reasoning": "∫₀³ 2x dx = [x²]₀³ = 9."
+    },
+    "mistakes": [
+      {
+        "value": -4,
+        "message": "Tu as peut-être soustrait la courbe du dessus à celle du dessous. La surface dessinée peut-elle avoir une aire négative ?"
+      },
+      {
+        "value": 6,
+        "message": "6 est l’aire sous la droite 3x. Il faut encore retirer l’aire sous la droite x."
+      }
+    ],
+    "coach": "Quelle courbe est au-dessus ? Le reste-t-elle sur tout l’intervalle ? Quelle différence décrit uniquement la bande à mesurer ?"
+  }
+}

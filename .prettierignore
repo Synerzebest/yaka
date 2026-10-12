@@ -1,0 +1,11 @@
+.next
+node_modules
+public
+content
+supabase
+tests/sql
+package-lock.json
+next-env.d.ts
+*.md
+*.css
+*.json

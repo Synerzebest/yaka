@@ -1,0 +1,22 @@
+{
+  "version": "2026-09-25",
+  "reviewedForPublication": false,
+  "publisherName": null,
+  "legalForm": null,
+  "postalAddress": null,
+  "enterpriseNumber": null,
+  "vatStatus": null,
+  "contactEmail": "contact@yaka.be",
+  "privacyEmail": "contact@yaka.be",
+  "phone": null,
+  "websiteHost": "Vercel Inc. (hébergeur prévu)",
+  "hostAddress": "440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis",
+  "supabaseRegion": null,
+  "emailProvider": null,
+  "transferSafeguards": null,
+  "inactiveAccountsRetention": null,
+  "technicalLogsRetention": null,
+  "backupsRetention": null,
+  "supportRetention": null,
+  "minorAccountProcedure": "L’élève déclare sa date de naissance à l’inscription. En dessous de 13 ans, le compte reste bloqué (aucun exercice enregistré) jusqu’à l’accord du parent ou représentant légal, donné via un lien personnel valable 7 jours envoyé à son adresse e-mail. Sont conservés : l’adresse du parent, la date et la version de l’information présentée. Le parent peut refuser ou retirer son accord par le même lien, ce qui supprime le compte. Les comptes sans accord sont supprimés après 30 jours."
+}
