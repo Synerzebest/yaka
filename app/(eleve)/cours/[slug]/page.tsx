@@ -37,8 +37,8 @@ export default async function LessonPage({
         {[
           ['theorie', 'Le déclic'],
           ['analogie', 'L’essentiel'],
-          ['exercices', 'Exercices infinis'],
-        ].map(([value, label]) => (
+          ['exercices', 'Exercices', ' infinis'],
+        ].map(([value, label, more]) => (
           <Link
             key={value}
             href={lessonHref(topic.slug, value)}
@@ -46,6 +46,7 @@ export default async function LessonPage({
             aria-current={tab === value ? 'page' : undefined}
           >
             {label}
+            {more && <span className="label-long">{more}</span>}
           </Link>
         ))}
       </nav>

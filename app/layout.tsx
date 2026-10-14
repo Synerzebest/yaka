@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   description: 'Comprendre, s’entraîner et progresser en mathématiques, de la 1re à la 6e secondaire.',
 };
 
-export const viewport: Viewport = { themeColor: '#12a36d' };
+// viewportFit lets the phone tab bar use the safe area around the iPhone home indicator.
+export const viewport: Viewport = { themeColor: '#12a36d', viewportFit: 'cover' };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (

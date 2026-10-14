@@ -1,9 +1,10 @@
+// `short` labels the phone tab bar, where space is tight.
 export const studentNavigation = [
-  { href: '/dashboard', name: 'Mon tableau de bord', icon: 'grid' },
-  { href: '/cours', name: 'Mes cours', icon: 'book' },
-  { href: '/exercices', name: 'Exercices', icon: 'infinity' },
-  { href: '/progression', name: 'Ma progression', icon: 'chart' },
-  { href: '/badges', name: 'Mes badges', icon: 'award' },
+  { href: '/dashboard', name: 'Mon tableau de bord', short: 'Accueil', icon: 'grid' },
+  { href: '/cours', name: 'Mes cours', short: 'Cours', icon: 'book' },
+  { href: '/exercices', name: 'Exercices', short: 'Exercices', icon: 'infinity' },
+  { href: '/progression', name: 'Ma progression', short: 'Progrès', icon: 'chart' },
+  { href: '/badges', name: 'Mes badges', short: 'Badges', icon: 'award' },
 ];
 export function isStudentPath(path: string) {
   return studentNavigation.some(item => path === item.href || path.startsWith(`${item.href}/`));

@@ -4,6 +4,7 @@ import { Icon } from './icons';
 import { FloatingSymbols } from './fun';
 import { LandingDemo } from './landing-demo';
 import { Mascot } from './mascot';
+import { BrandStar, Sparkle } from './brand-star';
 
 const years = [
   { year: '1re', text: 'Des bases solides', detail: 'Nombres relatifs, fractions, angles' },
@@ -20,7 +21,7 @@ export default function Landing() {
         <Link className="landing-logo" href="/" aria-label="Yaka, accueil">
           yaka<span>.</span>
           <span className="landing-logo-flower" aria-hidden="true">
-            ✳
+            <BrandStar />
           </span>
         </Link>
         <nav aria-label="Navigation du site">
@@ -28,9 +29,14 @@ export default function Landing() {
           <a href="#les-parcours">Les parcours</a>
         </nav>
         <div className="landing-account">
-          <Link href="/connexion">Se connecter</Link>
+          <Link href="/connexion">
+            <span className="label-long">Se connecter</span>
+            <span className="label-short">Connexion</span>
+          </Link>
           <Link href="/connexion?mode=inscription" className="primary-button">
-            Créer mon compte <Icon name="arrow" size={16} />
+            <span className="label-long">Créer mon compte</span>
+            <span className="label-short">S’inscrire</span>
+            <Icon name="arrow" size={16} />
           </Link>
         </div>
       </header>
@@ -39,16 +45,17 @@ export default function Landing() {
           <FloatingSymbols count={12} />
           <div className="landing-hero-copy">
             <div className="landing-eyebrow">
-              <span /> POUR LE SECONDAIRE BELGE, DE LA 1RE À LA 6E
+              <span /> SECONDAIRE BELGE · DE LA 1RE À LA 6E
             </div>
             <h1>
-              Les maths ne sont pas
-              <br />
-              une question de don.
-              <br />
-              <em>Juste de déclic.</em>
-              <span className="hero-asterisk" aria-hidden="true">
-                ✳
+              Les maths ne sont pas <br />
+              une question de don. <br />
+              {/* Kept together so the asterisk never wraps alone onto a new line. */}
+              <span className="hero-last">
+                <em>Juste de déclic.</em>
+                <span className="hero-asterisk" aria-hidden="true">
+                  <BrandStar />
+                </span>
               </span>
             </h1>
             <p>
@@ -76,7 +83,7 @@ export default function Landing() {
             <LandingDemo />
             <Mascot size={110} />
             <span className="visual-orbit" aria-hidden="true">
-              ✧
+              <Sparkle />
             </span>
           </div>
         </section>
@@ -184,7 +191,7 @@ export default function Landing() {
             C’est parti ! <Icon name="arrow" size={18} />
           </Link>
           <span aria-hidden="true" className="cta-flower">
-            ✳
+            <BrandStar />
           </span>
         </section>
       </main>

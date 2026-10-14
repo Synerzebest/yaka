@@ -8,20 +8,23 @@ import { studentNavigation, lessonHref } from '@/lib/navigation';
 import { todayInBrussels } from '@/lib/age';
 import { currentStreak } from '@/lib/streak';
 import { useStudent } from './provider';
+import { BrandStar } from '@/components/brand-star';
 
 export function StudentShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { profile, message, refresh, recommended, progress } = useStudent();
   const streak = currentStreak(progress.days, todayInBrussels());
-  const [mobile, setMobile] = useState(false);
   const [notifications, setNotifications] = useState(false);
   const current = studentNavigation.find(item => pathname === item.href || pathname.startsWith(item.href + '/'));
   return (
     <div className="app-shell">
-      <aside className={`sidebar ${mobile ? 'mobile-open' : ''}`}>
+      <aside className="sidebar">
         <Link href="/dashboard" className="logo" aria-label="Yaka, mon tableau de bord">
           <span className="logo-symbol">
-            y<span>✳</span>
+            y
+            <span>
+              <BrandStar />
+            </span>
           </span>
           yaka<span className="logo-dot">.</span>
         </Link>
@@ -33,7 +36,6 @@ export function StudentShell({ children }: { children: ReactNode }) {
               href={item.href}
               className={`nav-item ${current?.href === item.href ? 'active' : ''}`}
               aria-current={current?.href === item.href ? 'page' : undefined}
-              onClick={() => setMobile(false)}
             >
               <Icon name={item.icon} />
               <span>{item.name}</span>
@@ -45,7 +47,7 @@ export function StudentShell({ children }: { children: ReactNode }) {
             <Icon name="sparkles" />
             <h3>Un exercice par jour</h3>
             <p>C’est tout ce qu’il faut pour garder ta flamme 🔥 allumée.</p>
-            <Link className="text-button" href="/exercices" onClick={() => setMobile(false)}>
+            <Link className="text-button" href="/exercices">
               Je m’entraîne <Icon name="arrow" size={16} />
             </Link>
           </div>
@@ -66,17 +68,20 @@ export function StudentShell({ children }: { children: ReactNode }) {
       <div className="main-shell">
         <header className="topbar">
           <div className="breadcrumb">
-            <button
-              className="mobile-menu icon-button"
-              aria-label="Ouvrir le menu"
-              aria-expanded={mobile}
-              onClick={() => setMobile(!mobile)}
-            >
-              <Icon name="menu" />
-            </button>
+            <Link href="/dashboard" className="topbar-logo" aria-label="Yaka, mon tableau de bord">
+              <span className="logo-symbol">
+                y
+                <span>
+                  <BrandStar />
+                </span>
+              </span>
+            </Link>
             <Link href="/dashboard">Mon espace</Link>
             <Icon name="chevron" size={13} />
-            <strong>{current?.name || 'Mon espace'}</strong>
+            <strong>
+              <span className="label-long">{current?.name || 'Mon espace'}</span>
+              <span className="label-short">{current?.short || 'Mon espace'}</span>
+            </strong>
           </div>
           <div className="topbar-actions">
             <Link href="/compte" className="text-button">
@@ -134,13 +139,28 @@ export function StudentShell({ children }: { children: ReactNode }) {
             <span>
               Fait avec soin, pour tes déclics.{' '}
               <span className="footer-flower" aria-hidden="true">
-                ✳
+                <BrandStar />
               </span>
             </span>
             <LegalLinks />
           </footer>
         </main>
       </div>
+      <nav className="bottom-nav" aria-label="Navigation principale">
+        {studentNavigation.map(item => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={current?.href === item.href ? 'active' : ''}
+            aria-current={current?.href === item.href ? 'page' : undefined}
+          >
+            <span className="bottom-nav-icon">
+              <Icon name={item.icon} size={22} />
+            </span>
+            <span>{item.short}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

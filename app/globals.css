@@ -50,7 +50,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
@@ -59,6 +59,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.01em; line-height: 1.2; }
@@ -1103,7 +1104,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 32px 36px 0; }
   transform-origin: left;
   animation: grow .7s var(--spring) .6s forwards;
 }
-.hero-asterisk { position: absolute; right: 10px; top: -10px; font-size: 52px; color: var(--coral); animation: spin-slow 8s linear infinite; }
+.hero-last { white-space: nowrap; }
+.hero-asterisk { position: relative; top: -.55em; margin-left: .08em; font-size: .55em; color: var(--coral); animation: spin-slow 8s linear infinite; }
 .landing-hero-copy > p { font-size: 20px; line-height: 1.6; color: var(--ink-soft); }
 .landing-hero-copy > p strong { color: var(--ink); }
 .landing-hero-copy > p.landing-hero-description { margin-top: 14px; font-size: 17px; max-width: 470px; color: var(--muted); }
@@ -1305,6 +1307,13 @@ main { max-width: 1400px; margin: 0 auto; padding: 32px 36px 0; }
 .legal-skip { position: absolute; left: -10000px; }
 .legal-skip:focus { left: 20px; top: 12px; z-index: 100; padding: 12px; background: var(--surface); }
 
+/* Signature asterisk (components/brand-star.tsx): an SVG sized and coloured like text. */
+.brand-star { display: inline-block; vertical-align: -0.12em; }
+.logo-symbol span, .landing-logo-flower, .hero-asterisk, .footer-flower, .cta-flower, .visual-orbit {
+  display: inline-flex;
+  line-height: 1;
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
@@ -1329,65 +1338,222 @@ main { max-width: 1400px; margin: 0 auto; padding: 32px 36px 0; }
   .landing-hero-visual { max-width: 520px; width: 100%; margin: 0 auto; }
   .method-grid, .landing-year-grid { grid-template-columns: repeat(2, 1fr); }
 }
+/* Phone-only elements, hidden on larger screens. */
+.bottom-nav, .topbar-logo, .label-short { display: none; }
+
 @media (max-width: 760px) {
-  .sidebar { transform: translateX(-100%); transition: transform .3s var(--spring); width: 260px; box-shadow: 10px 0 40px rgb(29 39 51 / .15); }
-  .sidebar.mobile-open { transform: none; }
+  /* App shell: no sidebar, a compact top bar and a thumb-friendly tab bar. */
+  .sidebar { display: none; }
   .main-shell { margin: 0; }
-  .mobile-menu { display: inline-flex; }
-  .topbar { height: 64px; padding: 0 14px; }
+  .topbar { height: calc(60px + env(safe-area-inset-top)); padding: env(safe-area-inset-top) 14px 0; }
+  .topbar-logo { display: inline-flex; font-family: var(--font-display); font-weight: 700; }
+  .hero .floating-symbols { display: none; }
+  .topbar-logo .logo-symbol { width: 36px; height: 36px; font-size: 22px; border-radius: 12px 12px 12px 4px; box-shadow: 0 3px 0 var(--brand-dark); }
+  .topbar-logo .logo-symbol span { top: -8px; right: -8px; font-size: 15px; }
+  .breadcrumb { gap: 10px; min-width: 0; }
+  .breadcrumb > a:not(.topbar-logo), .breadcrumb > svg { display: none; }
+  .breadcrumb strong { font-family: var(--font-display); font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .topbar-actions { gap: 8px; }
   .topbar-actions > .text-button { display: none; }
-  main { padding: 22px 16px 0; }
-  .page-heading { flex-wrap: wrap; align-items: flex-start; }
-  .breadcrumb { min-width: 0; }
-  .breadcrumb strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .icon-button { width: 40px; height: 40px; }
+  .bottom-nav {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / .92);
+    backdrop-filter: blur(14px);
+    border-top: 2px solid var(--line);
+  }
+  .bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 52px; height: 32px; border-radius: 999px; transition: background .25s, transform .25s var(--spring); }
+  .bottom-nav a:active .bottom-nav-icon { transform: scale(.88); }
+  .bottom-nav a.active { color: var(--brand-dark); }
+  .bottom-nav a.active .bottom-nav-icon { background: var(--brand-soft); animation: pop .4s var(--spring); }
+  main { padding: 20px 16px calc(96px + env(safe-area-inset-bottom)); }
+  .primary-button, .outline-button { white-space: normal; text-align: center; }
+  .page-footer { margin-top: 32px; flex-direction: column; align-items: flex-start; }
+
+  /* Dashboard */
+  .page-heading { flex-wrap: wrap; align-items: flex-start; gap: 14px; }
+  .page-heading h1 { font-size: 30px; }
+  .page-heading p { font-size: 16px; }
   .year-select > span { text-align: left; }
   .curriculum-summary { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .hero { min-height: 0; padding: 26px 22px 150px; }
-  .hero-mascot { right: 50%; transform: translateX(50%); bottom: 4px; }
-  .hero-mascot .mascot { width: 110px; height: 110px; }
+  .hero { min-height: 0; padding: 24px 20px 26px; border-radius: 22px; }
+  .hero::before { width: 260px; height: 260px; right: -90px; top: auto; bottom: -110px; }
+  .hero-copy { max-width: none; }
+  .hero h2 { font-size: 25px; }
+  .hero p { font-size: 16px; padding-right: 70px; }
+  .hero-mascot { right: 6px; bottom: 6px; }
+  .hero-mascot .mascot { width: 92px; height: 92px; }
   .hero-bubble { display: none; }
-  .course-grid { grid-template-columns: 1fr; }
-  .right-column { grid-template-columns: 1fr; }
-  .journey-node { width: 50px; height: 50px; }
-  .journey-line { top: 23px; }
-  .journey-step strong { font-size: 13px; }
-  .journey-step small { font-size: 12px; }
-  .lesson-tabs a, .lesson-tabs button { font-size: 14px; padding: 10px 4px; }
-  .discovery-story { padding: 18px; font-size: 17px; }
-  .discovery-story::before { position: static; display: block; margin-bottom: 4px; font-size: 30px; }
-  .answer-row { flex-wrap: wrap; }
-  .answer-row input:not([type=checkbox]):not([type=radio]) { flex: 1 1 100%; }
-  .answer-row .primary-button { flex: 1; }
-  .discovery-links a { width: 100%; }
-  .feedback { grid-template-columns: 1fr; }
-  .feedback > .mascot { grid-row: auto; width: 64px; height: 64px; }
-  .feedback > :not(.mascot):not(.confetti) { grid-column: 1; }
-  .auth-card { padding: 28px 22px; }
-  .auth-mascot { display: none; }
-  .auth-card h1 { padding-right: 0; font-size: 26px; }
-  .landing-header { padding: 14px 18px; gap: 12px; }
-  .landing-header nav { display: none; }
-  .landing-account { gap: 12px; font-size: 15px; }
-  .landing-account .primary-button { padding: 11px 14px; font-size: 15px; }
-  .landing-account .primary-button svg { display: none; }
-  .landing-main { padding: 0 18px; }
-  .landing-hero { padding: 30px 0 40px; }
-  .landing-hero-copy > p { font-size: 18px; }
-  .landing-hero-visual .mascot { width: 84px; height: 84px; left: -10px; bottom: -26px; }
-  .method-grid, .landing-year-grid { grid-template-columns: 1fr; }
-  .landing-bottom-cta { flex-direction: column; align-items: flex-start; padding: 30px 24px; }
-  .landing-bottom-cta .primary-button { white-space: normal; }
-  .landing-footer { padding: 30px 18px; }
-}
-@media (max-width: 440px) {
-  .landing-logo { font-size: 32px; }
-  .landing-account > a:first-child { display: none; }
-  .stats-grid { gap: 10px; }
-  .stat-card { padding: 14px; }
+  .stats-grid { gap: 10px; margin: 18px 0 26px; }
+  .stat-card { padding: 14px 16px; }
   .stat-value { font-size: 30px; }
-  .hero h2 { font-size: 24px; }
-  .streak { padding: 5px 10px; font-size: 14px; }
-  .breadcrumb > a, .breadcrumb > svg { display: none; }
+  .section-heading h2 { font-size: 21px; }
+  /* Lessons of the moment: a swipeable carousel instead of a long column. */
+  .content-primary { min-width: 0; }
+  .content-primary .course-grid {
+    display: flex;
+    gap: 12px;
+    margin: 0 -16px;
+    padding: 4px 16px 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .content-primary .course-grid::-webkit-scrollbar { display: none; }
+  .content-primary .course-grid > * { flex: 0 0 82%; scroll-snap-align: start; }
+  .course-grid { grid-template-columns: 1fr; }
+  .course-card { padding: 18px 18px 0; }
+  .course-card:hover { transform: none; }
+  .course-card:active { transform: scale(.98); }
+  .course-bottom { margin-inline: -18px; padding: 13px 18px; }
+  .right-column { grid-template-columns: 1fr; }
+  .journey-card { padding: 20px 16px; }
+  .journey-node { width: 48px; height: 48px; }
+  .journey-line { top: 22px; }
+  .journey-step strong { font-size: 13px; line-height: 1.3; }
+  .journey-step small { font-size: 12px; line-height: 1.3; }
+
+  /* Lessons: use the whole width of the phone. */
+  .lesson-page > .text-button { margin-bottom: 10px; }
+  .lesson-page h1 { font-size: 28px; }
+  .lesson-page > p { font-size: 15px; }
+  .lesson-tabs { position: sticky; top: calc(64px + env(safe-area-inset-top)); z-index: 10; margin: 16px -4px; padding: 4px; border-radius: 16px; background: var(--bg-deep); }
+  .lesson-tabs a, .lesson-tabs button { font-size: 14px; padding: 10px 4px; border-radius: 12px; }
+  .label-long { display: none; }
+  .label-short { display: inline; }
+  .lesson-content { margin: 0 -4px; padding: 20px 16px; border-radius: 20px; font-size: 16px; }
+  .lesson-content h3 { font-size: 20px; margin-top: 22px; }
+  .discovery-stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 18px; }
+  .discovery-stages li { padding: 7px 4px; font-size: 12px; text-align: center; white-space: nowrap; }
+  .discovery-stages [aria-current="step"] { transform: none; }
+  .discovery-story { margin-top: 12px; padding: 16px; font-size: 17px; }
+  .discovery-story::before { display: none; }
+  .guided-attempt label, .lesson-content form > label, .choice-list legend { font-size: 17px; }
+  .answer-row { flex-wrap: wrap; gap: 10px; }
+  .answer-row input:not([type=checkbox]):not([type=radio]) { flex: 1 1 100%; }
+  .answer-row .primary-button { flex: 1 1 100%; }
+  .discovery-support { justify-items: stretch; }
+  .discovery-support > *, .discovery-visual { max-width: 100%; min-width: 0; }
+  .discovery-symbols { padding: 16px; font-size: 18px; }
+  .discovery-links { gap: 10px; }
+  .discovery-links a { width: 100%; }
+  .exercise-equation { padding: 22px 14px; font-size: 22px; }
+  .choice-option { padding: 14px; font-size: 16px; }
+  .choice-submit { width: 100%; }
+  .next-exercise { width: 100%; }
+  /* Feedback: the mascot sits next to the title, the explanation uses the full width below. */
+  .feedback { grid-template-columns: 52px 1fr; gap: 6px 12px; align-items: center; padding: 16px; }
+  .feedback > .mascot { grid-row: 1; grid-column: 1; width: 52px; height: 52px; }
+  .feedback > strong:first-of-type { grid-row: 1; grid-column: 2; font-size: 19px; line-height: 1.25; }
+  .feedback > :not(.mascot):not(.confetti):not(strong:first-of-type) { grid-column: 1 / -1; }
+  .xp-pop { right: 12px; top: -12px; }
+  .discovery-clue { padding: 12px 14px 12px 46px; }
+  .discovery-clue::before { left: 14px; }
+  .tip, .worked-example { padding: 16px; }
+
+  /* Account screens */
+  .auth-page { align-items: flex-start; padding: calc(20px + env(safe-area-inset-top)) 14px 28px; }
+  .auth-card { padding: 26px 20px; border-radius: 24px; }
+  .auth-logo { margin-bottom: 12px; font-size: 34px; }
+  .auth-mascot { right: 16px; top: 16px; width: 60px; height: 60px; }
+  .auth-card h1 { padding-right: 0; font-size: 26px; }
+  .consent-details { grid-template-columns: 1fr; gap: 2px; }
+  .consent-details dd { margin-bottom: 8px; }
+
+  /* Landing page */
+  .landing-header { padding: calc(12px + env(safe-area-inset-top)) 16px 12px; gap: 10px; }
+  .landing-header nav { display: none; }
+  .landing-account { gap: 14px; font-size: 15px; }
+  .landing-account .primary-button { padding: 10px 16px; font-size: 15px; }
+  .landing-account .primary-button svg { display: none; }
+  .landing-logo { font-size: 32px; }
+  .landing-logo-flower { font-size: 16px; right: -15px; }
+  .landing-main { padding: 0 16px; }
+  .landing-hero { padding: 26px 0 36px; gap: 34px; }
+  .landing-hero .floating-symbols { display: none; }
+  .landing-eyebrow { font-size: 12px; padding: 6px 12px; letter-spacing: .05em; }
+  .landing-hero h1 { margin: 18px 0; font-size: clamp(34px, 10vw, 44px); }
+  .landing-hero h1 br { display: none; }
+  .landing-hero-copy > p { font-size: 18px; }
+  .landing-hero-copy > p.landing-hero-description { font-size: 16px; }
+  .landing-hero-actions { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 24px; }
+  .landing-hero-actions .primary-button { width: 100%; }
+  .landing-hero-actions > a:last-child { justify-content: center; }
+  .landing-reassurance { justify-content: center; text-align: center; }
+  .landing-hero-visual { padding-top: 20px; }
+  .landing-hero-visual::before { inset: 0 -16px; }
+  .landing-hero-visual .mascot { width: 76px; height: 76px; left: auto; right: 0; bottom: auto; top: -18px; }
+  .floating-note { margin-left: 4px; }
+  .visual-orbit { display: none; }
+  .landing-demo { transform: none; }
+  .landing-demo:hover { transform: none; }
+  .demo-tabs { margin: 14px 12px 0; }
+  .demo-tabs button { font-size: 14px; }
+  .demo-tabs button > span { display: none; }
+  .demo-panel { min-height: 0; padding: 18px 16px; }
+  .demo-equation { font-size: 28px; gap: 14px; }
+  .landing-facts { flex-direction: column; align-items: stretch; padding: 4px 0 10px; }
+  .landing-facts > span { justify-content: center; }
+  .landing-method, .landing-curriculum { padding-top: 56px; }
+  .landing-section-title > p br { display: none; }
+  .landing-section-title > p { font-size: 17px; }
+  .method-grid { grid-template-columns: 1fr; gap: 14px; }
+  .method-card { padding: 22px; }
+  .method-card:hover, .landing-year:hover { transform: none; }
+  .landing-year-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .landing-year { padding: 16px 14px; border-radius: 18px; }
+  .landing-year-number { font-size: 30px; }
+  .landing-year-number small { display: block; margin: 0; font-size: 13px; }
+  .landing-year h3 { font-size: 17px; }
+  .landing-year p { padding-right: 0; font-size: 14px; }
+  .landing-year > svg { display: none; }
+  .landing-bottom-cta { flex-direction: column; align-items: stretch; margin-top: 56px; padding: 30px 22px; border-radius: 26px; }
+  .landing-bottom-cta .floating-symbols { display: none; }
+  .landing-bottom-cta p br { display: none; }
+  .landing-bottom-cta .primary-button { white-space: normal; width: 100%; }
+  .cta-flower { font-size: 150px; right: -30px; top: -50px; }
+  .landing-footer { flex-direction: column; align-items: flex-start; padding: 30px 16px calc(30px + env(safe-area-inset-bottom)); }
+  .landing-footer > a:last-of-type { margin-left: 0; }
+
+  /* Legal pages */
+  .legal-shell { width: calc(100% - 32px); }
+  .legal-document { padding: 22px 18px; }
+}
+@media (max-width: 380px) {
+  .landing-eyebrow { font-size: 11px; letter-spacing: .02em; }
+  .landing-hero-actions .primary-button { font-size: 16px; padding: 15px 18px; }
+  .landing-hero-visual .mascot { width: 62px; height: 62px; top: -36px; }
+  .demo-heading > span:last-child { display: none; }
+  .landing-account > a:first-child { font-size: 14px; }
+  .landing-logo { font-size: 28px; }
+  .landing-year-grid { grid-template-columns: 1fr; }
+  .landing-year-number small { display: inline; margin-left: 6px; }
+  .stat-value { font-size: 26px; }
+  .stat-top, .stat-card > p { font-size: 13px; }
+  .hero h2 { font-size: 22px; }
+  .streak { padding: 4px 9px; font-size: 14px; }
+  .notification-wrap { display: none; }
+  .bottom-nav a { font-size: 11px; }
+  .bottom-nav-icon { width: 44px; }
+  .lesson-tabs a, .lesson-tabs button { font-size: 13px; }
+  .discovery-stages li { font-size: 11px; }
 }
 
 /* Motion is decoration: everything still works, and stays readable, without it. */
