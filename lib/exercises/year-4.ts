@@ -317,7 +317,7 @@ export const yearFour: VariantMap<
           vertex = int(-4, 5),
           linear = -2 * a * vertex;
         return numeric('Trouve l’abscisse du sommet.', `f(x) = ${formatPolynomial([b, linear, a])}`, vertex, [
-          'Pour ax² + bx + c, xₛ = −b/(2a).',
+          'Le sommet est sur l’axe de symétrie du U : pour ax² + bx + c, il est en x = −b ÷ (2a).',
           `Ici xₛ = −(${linear})/(2 × ${a}) = ${vertex}.`,
         ]);
       },

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Icon } from './icons';
 import { parseAnswer } from '@/lib/learning';
+import { Confetti } from './fun';
 
 export function LandingDemo() {
   const [tab, setTab] = useState('Comprendre');
@@ -54,12 +55,12 @@ export function LandingDemo() {
         {tab === 'Comprendre' && (
           <>
             <p>
-              On cherche le nombre qui, ajouté à 3, donne 8. Pour trouver <strong>x</strong>, on retire 3 des deux
-              côtés.
+              <strong>x</strong>, c’est juste un nombre caché. On cherche quel nombre, avec 3 en plus, fait 8. Pour le
+              démasquer, on enlève 3 des deux côtés.
             </p>
             <div className="demo-insight">
               <Icon name="bolt" size={18} />
-              <span>La même opération des deux côtés : l’égalité reste vraie.</span>
+              <span>Ce que tu fais d’un côté du =, tu le fais de l’autre. Et tout reste juste.</span>
             </div>
             <button className="text-button" onClick={() => setTab('Imaginer')}>
               Voir avec une image <Icon name="arrow" size={16} />
@@ -72,8 +73,8 @@ export function LandingDemo() {
               ⚖️
             </div>
             <p>
-              Les deux plateaux sont en équilibre. Retire trois poids de chaque côté : il reste{' '}
-              <strong>x d’un côté, et 5 de l’autre</strong>.
+              Imagine une balance bien droite. Enlève 3 poids de chaque côté : elle reste droite, et il reste{' '}
+              <strong>x d’un côté, 5 de l’autre</strong>. Donc x = 5 !
             </p>
             <button className="text-button" onClick={() => setTab('Essayer')}>
               J’essaie par moi-même <Icon name="arrow" size={16} />
@@ -109,9 +110,10 @@ export function LandingDemo() {
             <div aria-live="polite">
               {result !== null && (
                 <p className={`demo-result ${result ? 'success' : 'retry'}`}>
+                  {result && <Confetti />}
                   {result
-                    ? 'Exactement ! 5 + 3 = 8. Tu viens de résoudre une équation.'
-                    : 'Reprenons : retire 3 des deux côtés. x = 8 − 3 = 5. Essaie avec cette valeur.'}
+                    ? 'Exactement ! 5 + 3 = 8. Bravo, tu viens de résoudre une équation 🎉'
+                    : 'Pas tout à fait. Quel nombre, avec 3 en plus, donne 8 ? Enlève les 3 du 8 pour le trouver.'}
                 </p>
               )}
             </div>
@@ -124,7 +126,7 @@ export function LandingDemo() {
         )}
       </div>
       <div className="demo-caption">
-        <Icon name="leaf" size={15} /> Ici, une erreur est un point de départ.
+        <Icon name="leaf" size={15} /> Ici, se tromper fait partie du jeu.
       </div>
     </div>
   );

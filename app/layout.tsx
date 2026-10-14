@@ -1,15 +1,17 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Fredoka, Nunito } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Nunito: rounded and very readable for long explanations. Fredoka: friendly headings.
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const fredoka = Fredoka({
+  variable: '--font-fredoka',
   subsets: ['latin'],
+  weight: ['500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -17,9 +19,11 @@ export const metadata: Metadata = {
   description: 'Comprendre, s’entraîner et progresser en mathématiques, de la 1re à la 6e secondaire.',
 };
 
+export const viewport: Viewport = { themeColor: '#12a36d' };
+
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="fr-BE" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="fr-BE" className={`${nunito.variable} ${fredoka.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

@@ -1,15 +1,17 @@
 import { LegalLinks } from '@/components/legal-links';
 import Link from 'next/link';
 import { Icon } from './icons';
+import { FloatingSymbols } from './fun';
 import { LandingDemo } from './landing-demo';
+import { Mascot } from './mascot';
 
 const years = [
-  { year: '1re', text: 'Prendre de bonnes bases', detail: 'Nombres, fractions et figures' },
-  { year: '2e', text: 'Gagner en confiance', detail: 'Équations, aires et proportions' },
-  { year: '3e', text: 'Relier les idées', detail: 'Algèbre, fonctions et Pythagore' },
-  { year: '4e', text: 'Aller un peu plus loin', detail: 'Second degré et trigonométrie' },
-  { year: '5e', text: 'Construire son raisonnement', detail: 'Suites, vecteurs et dérivées' },
-  { year: '6e', text: 'Préparer la suite', detail: 'Analyse, intégrales et probabilités' },
+  { year: '1re', text: 'Des bases solides', detail: 'Nombres relatifs, fractions, angles' },
+  { year: '2e', text: 'Prendre confiance', detail: 'Équations, aires, proportions' },
+  { year: '3e', text: 'Tout relier', detail: 'Calcul littéral, fonctions, Pythagore' },
+  { year: '4e', text: 'Passer la vitesse supérieure', detail: 'Second degré, trigo, probabilités' },
+  { year: '5e', text: 'Entrer dans les maths 6 h', detail: 'Suites, vecteurs, dérivées' },
+  { year: '6e', text: 'Finir en beauté', detail: 'Intégrales, logarithmes, probabilités' },
 ];
 export default function Landing() {
   return (
@@ -34,6 +36,7 @@ export default function Landing() {
       </header>
       <main className="landing-main">
         <section className="landing-hero">
+          <FloatingSymbols count={12} />
           <div className="landing-hero-copy">
             <div className="landing-eyebrow">
               <span /> POUR LE SECONDAIRE BELGE, DE LA 1RE À LA 6E
@@ -49,33 +52,29 @@ export default function Landing() {
               </span>
             </h1>
             <p>
-              Une explication qui te parle. Une image qui reste.
-              <br />
-              Et ce moment où tu te dis : <strong>« Ah, j’ai compris ! »</strong>
+              Des explications avec des mots simples, des exemples de tous les jours, et ce moment génial où tu te dis :{' '}
+              <strong>« Ah, mais c’est tout ? »</strong>
             </p>
             <p className="landing-hero-description">
-              Yaka t’aide à comprendre les maths et à t’entraîner à ton rythme, avec des analogies concrètes et des
-              corrections qui t’accompagnent.
+              Yaka t’explique les maths comme le ferait un ami patient, puis te laisse t’entraîner autant que tu veux.
+              Tu te trompes ? Pas grave : on regarde ensemble pourquoi.
             </p>
             <div className="landing-hero-actions">
               <Link className="primary-button" href="/connexion?mode=inscription">
-                Trouver mon premier déclic <Icon name="arrow" size={18} />
+                Je commence, c’est gratuit <Icon name="arrow" size={18} />
               </Link>
               <a href="#un-premier-declic">
-                Essayer un exemple <Icon name="chevron" size={15} />
+                Tester tout de suite <Icon name="chevron" size={15} />
               </a>
             </div>
             <div className="landing-reassurance">
-              <Icon name="check" size={15} /> Les cours disponibles sont accessibles gratuitement.
+              <Icon name="check" size={15} /> Gratuit, sans pub, de la 1re à la 6e secondaire.
             </div>
           </div>
           <div className="landing-hero-visual">
-            <div className="floating-note">
-              Moins de « par cœur »,
-              <br />
-              plus de « j’ai compris ».
-            </div>
+            <div className="floating-note">Essaie, ici, sans compte 👇</div>
             <LandingDemo />
+            <Mascot size={110} />
             <span className="visual-orbit" aria-hidden="true">
               ✧
             </span>
@@ -84,25 +83,24 @@ export default function Landing() {
         <div className="landing-facts">
           <span>
             <Icon name="book" />
-            42 leçons pour commencer
+            42 leçons, 126 types d’exercices
           </span>
           <span>
             <Icon name="infinity" />
-            Des exercices qui se renouvellent
+            Des exercices qui ne finissent jamais
           </span>
           <span>
-            <Icon name="leaf" />
-            Chacun son rythme
+            <Icon name="leaf" />À ton rythme, sans stress
           </span>
         </div>
-        <section className="landing-method" id="la-methode">
+        <section className="landing-method reveal" id="la-methode">
           <div className="landing-section-title">
             <span className="landing-eyebrow">LA MÉTHODE YAKA</span>
-            <h2>Comprendre avant de retenir.</h2>
+            <h2>Comprendre d’abord. Retenir ensuite.</h2>
             <p>
-              Pas de longues pages à apprendre sans savoir pourquoi.
+              Pas de pages de théorie à apprendre par cœur.
               <br />
-              Un chemin simple pour que les idées prennent du sens.
+              On part d’une situation concrète, et la règle arrive toute seule.
             </p>
           </div>
           <div className="method-grid">
@@ -111,22 +109,22 @@ export default function Landing() {
                 number: '01',
                 icon: 'book',
                 color: 'purple',
-                title: 'L’essentiel, clairement.',
-                text: 'Une théorie courte, une méthode pas à pas et un exemple résolu. Tu sais ce qui compte et par où commencer.',
+                title: 'D’abord, tu explores.',
+                text: 'Un gâteau à partager, un trajet à raccourcir, une balance à équilibrer… Tu cherches la réponse avec ta tête, avant toute formule.',
               },
               {
                 number: '02',
                 icon: 'sparkles',
                 color: 'peach',
-                title: 'Une image qui fait tilt.',
-                text: 'Une pizza pour les fractions, une balance pour les équations. On part du concret pour éclairer ce qui semblait abstrait.',
+                title: 'Puis, le déclic.',
+                text: 'Une fois que tu as compris l’idée, on te montre comment l’écrire en maths. Et là, la règle devient évidente.',
               },
               {
                 number: '03',
                 icon: 'infinity',
                 color: 'green',
-                title: 'Essaie. Comprends. Recommence.',
-                text: 'Des exercices renouvelés et une correction guidée. Tu identifies les pièges classiques et tu avances, un essai à la fois.',
+                title: 'Enfin, tu t’entraînes.',
+                text: 'Des exercices qui changent à chaque fois. Si tu te trompes, Yaka repère ton erreur et t’aide à la comprendre.',
               },
             ].map(step => (
               <article className="method-card" key={step.number}>
@@ -142,14 +140,14 @@ export default function Landing() {
             ))}
           </div>
         </section>
-        <section className="landing-curriculum" id="les-parcours">
+        <section className="landing-curriculum reveal" id="les-parcours">
           <div className="landing-section-title">
-            <span className="landing-eyebrow">À CHAQUE ANNÉE, SES DÉCLICS</span>
-            <h2>Un point de départ, où que tu en sois.</h2>
+            <span className="landing-eyebrow">TON ANNÉE, TES LEÇONS</span>
+            <h2>Tu commences où tu veux.</h2>
             <p>
-              Choisis ton année et retrouve les notions à travailler.
+              Choisis ton année et retrouve les notions du moment.
               <br />
-              Les parcours de 5e et 6e s’orientent vers les maths 6 h.
+              En 5e et 6e, les parcours suivent les maths 6 h.
             </p>
           </div>
           <div className="landing-year-grid">
@@ -169,21 +167,21 @@ export default function Landing() {
             Une première banque de notions pour le général francophone, à compléter selon le programme de ton école.
           </p>
         </section>
-        <section className="landing-bottom-cta">
+        <section className="landing-bottom-cta reveal">
+          <FloatingSymbols count={8} />
           <div>
-            <span className="landing-eyebrow">UN PETIT PAS AUJOURD’HUI</span>
+            <span className="landing-eyebrow">
+              <span /> PRÊT·E ?
+            </span>
             <h2>
-              Ton prochain « j’ai compris »<br />
-              commence ici.
-            </h2>
-            <p>
-              Crée ton compte pour retrouver tes cours et garder tes progrès,
+              Ton prochain « j’ai compris »
               <br />
-              même quand tu changes d’appareil.
-            </p>
+              est à deux clics.
+            </h2>
+            <p>Crée ton compte : tes progrès te suivent sur ton téléphone, ta tablette et ton ordi.</p>
           </div>
           <Link className="primary-button" href="/connexion?mode=inscription">
-            C’est parti, je crée mon compte <Icon name="arrow" size={18} />
+            C’est parti ! <Icon name="arrow" size={18} />
           </Link>
           <span aria-hidden="true" className="cta-flower">
             ✳

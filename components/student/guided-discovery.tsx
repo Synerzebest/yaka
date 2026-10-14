@@ -6,6 +6,8 @@ import { useId, useState, type FormEvent } from 'react';
 import type { Discovery } from '@/lib/discovery';
 import { assessGuidedAnswer } from '@/lib/guided-answer';
 import { lessonHref } from '@/lib/navigation';
+import { Confetti } from '@/components/fun';
+import { Mascot } from '@/components/mascot';
 
 type AttemptProps = {
   question: string;
@@ -32,22 +34,29 @@ function GuidedAttempt({
   const [input, setInput] = useState('');
   const [response, setResponse] = useState<ReturnType<typeof assessGuidedAnswer> | null>(null);
   const [hintCount, setHintCount] = useState(0);
+  // Alternating two identical animations replays the shake after each new wrong try, without losing focus.
+  const [attempts, setAttempts] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const completed = response?.status === 'correct' || revealed;
 
   function submit(event: FormEvent) {
     event.preventDefault();
     const result = assessGuidedAnswer(input, { answer, mistakes, retry });
+    setAttempts(count => count + 1);
     setResponse(result);
     if (result.status === 'correct') onUnderstood?.();
   }
 
   return (
     <div className="guided-attempt">
-      <form onSubmit={submit} noValidate>
+      <form
+        onSubmit={submit}
+        noValidate
+        className={response?.status === 'retry' ? (attempts % 2 ? 'shake' : 'shake-again') : undefined}
+      >
         <label htmlFor={id}>{question}</label>
         <p className="answer-hint" id={`${id}-format`}>
-          Un nombre ou une fraction exacte, sans unité. La virgule est acceptée.
+          Un nombre ou une fraction (comme 3/4), sans unité. 2,5 ou 2.5 : les deux marchent.
         </p>
         <div className="answer-row">
           <input
@@ -64,22 +73,29 @@ function GuidedAttempt({
             }}
           />
           <button className="primary-button" disabled={completed}>
-            Essayer mon idée
+            Je tente !
           </button>
         </div>
       </form>
       <div id={`${id}-feedback`} aria-live="polite" aria-atomic="true">
         {response && (
           <div className={`feedback ${response.status === 'correct' ? 'correct' : 'wrong'}`}>
+            {response.status === 'correct' && <Confetti />}
+            <Mascot
+              mood={response.status === 'correct' ? 'happy' : response.status === 'invalid' ? 'thinking' : 'oops'}
+              size={64}
+            />
             <strong>
               {response.status === 'correct'
-                ? 'Ça fonctionne !'
+                ? 'Oui ! Tu l’as trouvé 🎉'
                 : response.status === 'invalid'
-                  ? 'Une réponse à reformuler'
-                  : 'Regardons ton idée'}
+                  ? 'Hmm, je n’ai pas compris ta réponse'
+                  : 'Pas tout à fait… regardons ton idée'}
             </strong>
             <p>{response.message}</p>
-            {response.status === 'retry' && <small>Tu peux modifier ta réponse et réessayer.</small>}
+            {response.status === 'retry' && (
+              <small>Change ta réponse et réessaie, tu as droit à autant d’essais que tu veux.</small>
+            )}
           </div>
         )}
       </div>
@@ -95,7 +111,7 @@ function GuidedAttempt({
           </div>
           {hintCount < hints.length ? (
             <button className="outline-button" onClick={() => setHintCount(count => count + 1)}>
-              {hintCount ? 'Un autre indice' : 'Un petit indice ?'}
+              {hintCount ? 'Encore un indice' : 'Un petit indice ?'}
             </button>
           ) : (
             <button
@@ -105,14 +121,14 @@ function GuidedAttempt({
                 onUnderstood?.();
               }}
             >
-              Regardons le raisonnement ensemble →
+              Toujours bloqué ? On le fait ensemble →
             </button>
           )}
         </div>
       )}
       {completed && (
         <div className="worked-example" role="status">
-          <strong>{revealed ? 'On le fait ensemble' : 'Pourquoi ça marche'}</strong>
+          <strong>{revealed ? 'On le fait ensemble 🤝' : 'Pourquoi ça marche'}</strong>
           <p>{reasoning}</p>
         </div>
       )}
@@ -127,9 +143,9 @@ function DiscoveryJourney({ lesson, slug }: { lesson: Discovery; slug: string })
   return (
     <section className="guided-discovery">
       <ol className="discovery-stages" aria-label="Les étapes de la découverte">
-        <li aria-current={!understood ? 'step' : undefined}>1. Explorer</li>
-        <li aria-current={understood && !transferred ? 'step' : undefined}>2. Faire le lien</li>
-        <li aria-current={transferred ? 'step' : undefined}>3. Réutiliser</li>
+        <li aria-current={!understood ? 'step' : undefined}>1. J’explore</li>
+        <li aria-current={understood && !transferred ? 'step' : undefined}>2. Je comprends</li>
+        <li aria-current={transferred ? 'step' : undefined}>3. Je réessaie</li>
       </ol>
       <h2>{lesson.title}</h2>
       <p className="discovery-story">{lesson.story}</p>
@@ -145,15 +161,15 @@ function DiscoveryJourney({ lesson, slug }: { lesson: Discovery; slug: string })
       />
       {understood && (
         <div className="discovery-reveal">
-          <h3>La même idée, avec les symboles</h3>
+          <h3>La même idée, version maths</h3>
           <div className="discovery-symbols">{lesson.symbols}</div>
           <p>{lesson.rule}</p>
           <details className="discovery-hint">
-            <summary>Ce qui peut te faire hésiter</summary>
+            <summary>Le piège à éviter</summary>
             <p>{lesson.pitfall}</p>
           </details>
-          <h3>À toi de réutiliser l’idée</h3>
-          <p>Les nombres changent. Retrouve ce qui reste pareil dans le raisonnement.</p>
+          <h3>Et maintenant, sans aide ?</h3>
+          <p>Les nombres changent, mais l’idée reste la même. À toi !</p>
           <GuidedAttempt
             question={lesson.transfer.question}
             answer={lesson.transfer.answer}
@@ -164,22 +180,22 @@ function DiscoveryJourney({ lesson, slug }: { lesson: Discovery; slug: string })
           />
           {transferred && (
             <p className="discovery-clue">
-              Tu peux maintenant essayer avec de nouveaux nombres. Si tu hésites, l’essentiel reste accessible.
+              Bravo, tu as compris l’idée ! Passe à l’entraînement pour la garder bien en tête.
             </p>
           )}
         </div>
       )}
       <div className="discovery-links">
         <Link className="outline-button" href={lessonHref(slug, 'analogie')}>
-          Retrouver l’essentiel
+          Le résumé
         </Link>
         <Link className="primary-button" href={lessonHref(slug, 'exercices')}>
-          Passer à l’entraînement →
+          Je m’entraîne →
         </Link>
       </div>
       <p className="answer-hint">
-        Ici, tu explores : ces essais ne comptent pas dans ta progression. Les exercices d’entraînement sont
-        enregistrés.
+        Ici, tu peux te tromper autant que tu veux : rien n’est noté. Seuls les exercices d’entraînement comptent dans
+        ta progression.
       </p>
     </section>
   );
@@ -191,7 +207,7 @@ export function GuidedDiscovery(props: { lesson: Discovery; slug: string }) {
     <>
       <DiscoveryJourney {...props} key={`${props.slug}-${restart}`} />
       <button className="text-button discovery-restart" onClick={() => setRestart(value => value + 1)}>
-        Recommencer la découverte
+        ↺ Recommencer la découverte
       </button>
     </>
   );
@@ -200,29 +216,29 @@ export function GuidedDiscovery(props: { lesson: Discovery; slug: string }) {
 export function DiscoveryTakeaway({ lesson, slug }: { lesson: Discovery; slug: string }) {
   return (
     <section>
-      <span className="subtle-tag">POUR RETROUVER LE FIL</span>
+      <span className="subtle-tag">Le résumé</span>
       <h2>{lesson.title}</h2>
       <p>{lesson.rule}</p>
       <div className="worked-example">
-        <strong>Repartir de l’exemple</strong>
+        <strong>L’exemple pour s’en souvenir</strong>
         <p>{lesson.story}</p>
         <p>{lesson.reasoning}</p>
       </div>
       <div className="discovery-symbols">{lesson.symbols}</div>
       <div className="tip">
         <div>
-          <strong>Le point de vigilance</strong>
+          <strong>Le piège à éviter</strong>
           <p>{lesson.pitfall}</p>
         </div>
       </div>
-      <h3>La question à te poser</h3>
+      <h3>La question magique 🪄</h3>
       <p>{lesson.coach}</p>
       <div className="discovery-links">
         <Link className="outline-button" href={lessonHref(slug)}>
-          Revivre le déclic
+          Refaire la découverte
         </Link>
         <Link className="primary-button" href={lessonHref(slug, 'exercices')}>
-          À moi d’essayer →
+          Je m’entraîne →
         </Link>
       </div>
     </section>

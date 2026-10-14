@@ -3,17 +3,36 @@ import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { correctForLesson, yearDescriptions, yearProgress, type Topic } from '@/lib/curriculum';
 import { lessonHref } from '@/lib/navigation';
+import { CountUp, FloatingSymbols } from '@/components/fun';
+import { Mascot } from '@/components/mascot';
 import { useStudent } from './provider';
-import { Plant } from './plant';
 
-export function PageHeading({ title, description }: { title: string; description: string }) {
+export function PageHeading({
+  title,
+  description,
+  wave = false,
+}: {
+  title: string;
+  description: string;
+  wave?: boolean;
+}) {
   const { profile, busy, changeYear, yearCourses } = useStudent();
   return (
     <>
       <section className="page-heading">
         <div>
-          <div className="eyebrow">UN PETIT PAS CHAQUE JOUR</div>
-          <h1>{title}</h1>
+          <div className="eyebrow">Un petit pas chaque jour</div>
+          <h1>
+            {title}
+            {wave && (
+              <>
+                {' '}
+                <span className="wave-hand" aria-hidden="true">
+                  👋
+                </span>
+              </>
+            )}
+          </h1>
           <p>{description}</p>
         </div>
         <label className="year-select">
@@ -59,7 +78,9 @@ export function CourseList({ items, exercise = false }: { items: Topic[]; exerci
               <span className={`topic-icon ${topic.color}`}>
                 <Icon name={topic.icon} size={26} />
               </span>
-              <span className="course-status">{count >= 5 ? 'Terminé ✓' : count ? 'En cours' : 'À découvrir'}</span>
+              <span className={`course-status ${count >= 5 ? 'finished' : count ? 'started' : ''}`}>
+                {count >= 5 ? 'Maîtrisé ✓' : count ? 'En cours' : 'Nouveau'}
+              </span>
             </div>
             <h3>{topic.title}</h3>
             <p>{topic.description}</p>
@@ -84,26 +105,25 @@ export function CourseList({ items, exercise = false }: { items: Topic[]; exerci
 }
 export function Statistics() {
   const { progress, profile, courses } = useStudent();
-  const items = [
-    [
-      'Ta progression',
-      `${yearProgress(progress.topicCorrect, courses, profile.school_year)} %`,
-      'Dans l’année sélectionnée',
-    ],
-    ['Exercices réussis', String(progress.correct), 'Toutes années confondues'],
+  const items: [string, number, string, string][] = [
+    ['Ta progression', yearProgress(progress.topicCorrect, courses, profile.school_year), ' %', 'Sur ton année'],
+    ['Exercices réussis', progress.correct, '', 'Depuis le début'],
     [
       'Taux de réussite',
-      `${progress.attempts ? Math.round((progress.correct / progress.attempts) * 100) : 0} %`,
-      `${progress.attempts} essais enregistrés`,
+      progress.attempts ? Math.round((progress.correct / progress.attempts) * 100) : 0,
+      ' %',
+      `Sur ${progress.attempts} essai${progress.attempts > 1 ? 's' : ''}`,
     ],
-    ['Jours d’apprentissage', String(progress.days.length), 'Chaque petit pas compte'],
+    ['Jours de maths', progress.days.length, '', 'Chaque jour compte'],
   ];
   return (
     <section className="stats-grid" aria-label="Mes statistiques">
-      {items.map(([title, value, note]) => (
+      {items.map(([title, value, suffix, note]) => (
         <div className="stat-card" key={title}>
           <div className="stat-top">{title}</div>
-          <div className="stat-value">{value}</div>
+          <div className="stat-value">
+            <CountUp value={value} suffix={suffix} />
+          </div>
           <p>{note}</p>
         </div>
       ))}
@@ -118,10 +138,10 @@ export function Recommendation() {
         <div className="recommendation-label">
           <Icon name="sparkles" size={17} /> JUSTE POUR TOI
         </div>
-        <h2>{progress.lastMistake === recommended.slug ? 'Un petit coup de pouce ?' : 'Ton prochain déclic'}</h2>
+        <h2>{progress.lastMistake === recommended.slug ? 'On retente le coup ?' : 'Ton prochain déclic'}</h2>
         <p>
           {progress.lastMistake === recommended.slug
-            ? `Reprenons « ${recommended.title} » avec un nouvel essai.`
+            ? `« ${recommended.title} » t’a résisté la dernière fois. Cette fois, c’est la bonne !`
             : recommended.description}
         </p>
         <h3>{recommended.title}</h3>
@@ -133,6 +153,11 @@ export function Recommendation() {
         <h3>Ton petit objectif</h3>
         <p>
           {Math.min(progress.correct, profile.exercise_goal)} / {profile.exercise_goal} exercices réussis
+          {progress.correct >= profile.exercise_goal && (
+            <span className="goal-done" aria-hidden="true">
+              🎉
+            </span>
+          )}
         </p>
         <div className="progress-track">
           <i style={{ width: `${Math.min(100, (progress.correct / profile.exercise_goal) * 100)}%` }} />
@@ -152,7 +177,7 @@ export function Journey() {
       <div className="section-heading">
         <div>
           <h2>Ton chemin vers le déclic</h2>
-          <p>Les réussites de l’année sélectionnée.</p>
+          <p>Chaque exercice réussi te fait avancer.</p>
         </div>
       </div>
       <div className="journey">
@@ -162,17 +187,21 @@ export function Journey() {
           ['Le déclic', 1],
           ['L’élan', 5],
           ['La confiance', 15],
-        ].map(([name, limit]) => (
+        ].map(([name, limit], index, steps) => (
           <Link
             href={lessonHref(recommended.slug, 'exercices')}
-            className={`journey-step ${count >= Number(limit) ? 'done' : ''}`}
+            className={`journey-step ${
+              count >= Number(limit) ? 'done' : index > 0 && count >= Number(steps[index - 1][1]) ? 'next' : ''
+            }`}
             key={name}
           >
             <span className="journey-node">
               <Icon name={count >= Number(limit) ? 'check' : 'lock'} size={22} />
             </span>
             <strong>{name}</strong>
-            <small>{limit === 0 ? 'Bienvenue chez toi' : `${limit} réussites`}</small>
+            <small>
+              {limit === 0 ? 'Tu es là, c’est déjà ça !' : `${limit} réussite${Number(limit) > 1 ? 's' : ''}`}
+            </small>
           </Link>
         ))}
       </div>
@@ -184,32 +213,37 @@ export function DashboardPage() {
   return (
     <>
       <PageHeading
-        title={`Salut ${profile.display_name} ✺`}
-        description="Prêt à faire des maths un peu plus simplement ?"
+        title={`Salut ${profile.display_name} !`}
+        description="On fait un peu de maths ? Promis, ça va bien se passer."
+        wave
       />
       <section className="hero">
+        <FloatingSymbols count={9} />
         <div className="hero-copy">
-          <div className="pill">LES MATHS, ÇA S’APPREND.</div>
+          <div className="pill">LES MATHS, ÇA S’APPREND</div>
           <h2>
             Pas besoin d’être un génie.
             <br />
             Juste d’avoir le bon déclic.
           </h2>
-          <p>Des explications qui parlent, des exercices à l’infini.</p>
+          <p>Des explications simples, des exercices à l’infini.</p>
           <Link className="primary-button" href={lessonHref(recommended.slug, 'exercices')}>
-            C’est parti, je m’entraîne <Icon name="arrow" size={17} />
+            C’est parti ! <Icon name="arrow" size={18} />
           </Link>
         </div>
-        <Plant />
+        <span className="hero-bubble">Je t’ai gardé un exercice 😉</span>
+        <div className="hero-mascot">
+          <Mascot size={150} />
+        </div>
       </section>
       <Statistics />
       <div className="content-grid">
         <div className="content-primary">
           <section className="courses-section">
             <div className="section-heading">
-              <h2>Un chapitre, un nouveau déclic</h2>
+              <h2>Tes leçons du moment</h2>
               <Link className="text-button" href="/cours">
-                Tous les cours →
+                Tout voir <Icon name="arrow" size={16} />
               </Link>
             </div>
             <CourseList items={yearCourses.slice(0, 3)} />
@@ -229,8 +263,8 @@ export function CoursesPage({ exercise = false }: { exercise?: boolean }) {
         title={exercise ? 'Exercices' : 'Mes cours'}
         description={
           exercise
-            ? 'Des exercices qui changent à chaque essai.'
-            : 'Comprends à ton rythme, avec des exemples et des analogies.'
+            ? 'Des exercices qui changent à chaque fois. Impossible de les apprendre par cœur !'
+            : 'Choisis une leçon et laisse-toi guider, à ton rythme.'
         }
       />
       <CourseList items={yearCourses} exercise={exercise} />
@@ -241,7 +275,7 @@ export function ProgressPage() {
   const { yearCourses } = useStudent();
   return (
     <>
-      <PageHeading title="Ma progression" description="Chaque erreur est une occasion de comprendre." />
+      <PageHeading title="Ma progression" description="Chaque erreur t’apprend quelque chose. Si si, vraiment." />
       <Statistics />
       <Journey />
       <section className="courses-section">
@@ -257,7 +291,7 @@ export function BadgesPage() {
   const { progress } = useStudent();
   return (
     <>
-      <PageHeading title="Mes badges" description="Tes petites victoires, toutes années confondues." />
+      <PageHeading title="Mes badges" description="Ta collection de petites victoires." />
       <section className="badges-grid">
         {[
           { icon: 'leaf', name: 'Le premier pas', limit: 0 },
@@ -268,7 +302,11 @@ export function BadgesPage() {
           <div key={b.name} className={`badge-card ${progress.correct >= b.limit ? 'earned' : ''}`}>
             <Icon name={b.icon} size={40} />
             <h3>{b.name}</h3>
-            <p>{progress.correct >= b.limit ? 'Badge débloqué !' : `${b.limit} exercices réussis pour le débloquer`}</p>
+            <p>
+              {progress.correct >= b.limit
+                ? 'Débloqué ! 🎉'
+                : `Encore ${b.limit - progress.correct} exercice${b.limit - progress.correct > 1 ? 's' : ''} réussi${b.limit - progress.correct > 1 ? 's' : ''}`}
+            </p>
           </div>
         ))}
       </section>

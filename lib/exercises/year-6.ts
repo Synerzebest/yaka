@@ -219,7 +219,7 @@ export const yearSix: VariantMap<
           `f(x) = ${formatPolynomial([c, 2 * b, 3 * a])}`,
           answer,
           [
-            'Une primitive de xⁿ est xⁿ⁺¹/(n + 1). Avec F(0) = 0, il n’y a pas de constante à ajouter.',
+            'Une primitive, c’est l’inverse d’une dérivée : xⁿ devient xⁿ⁺¹ ÷ (n + 1). Avec F(0) = 0, pas de nombre à ajouter au bout.',
             `F(x) = ${formatPolynomial(answer)}. Vérifie : en dérivant, on retrouve f.`,
           ],
           {
@@ -248,7 +248,7 @@ export const yearSix: VariantMap<
           `${total} élèves ; ${group} sportifs, dont ${tennis} joueurs de tennis`,
           tennis / group,
           [
-            `La condition « sportif » réduit l’univers aux ${group} sportifs.`,
+            `On choisit seulement parmi les sportifs : ça fait ${group} élèves possibles.`,
             `Parmi eux, ${tennis} jouent au tennis : probabilité = ${tennis}/${group}.`,
           ],
           {
@@ -276,7 +276,7 @@ export const yearSix: VariantMap<
           `Filles : ${girlsIn} internes, ${girlsOut} externes ; garçons : ${boysIn} internes, ${boysOut} externes`,
           girlsIn / (girlsIn + girlsOut),
           [
-            `La condition « fille » limite l’univers aux ${girlsIn + girlsOut} filles.`,
+            `On sait que c’est une fille : on choisit parmi les ${girlsIn + girlsOut} filles seulement.`,
             `P(interne | fille) = ${girlsIn}/${girlsIn + girlsOut}.`,
           ],
           {
@@ -376,7 +376,7 @@ export const yearSix: VariantMap<
           starters * mains * desserts,
           [
             'Chaque entrée peut être associée à chaque plat, puis à chaque dessert.',
-            `Principe multiplicatif : ${starters} × ${mains} × ${desserts} = ${starters * mains * desserts}.`,
+            `Chaque choix se combine avec tous les autres, donc on multiplie : ${starters} × ${mains} × ${desserts} = ${starters * mains * desserts}.`,
           ],
           {
             mistakes: [
@@ -644,7 +644,7 @@ export const yearSix: VariantMap<
       build({ int }) {
         const k = int(1, 6);
         return numeric(
-          'Calcule l’aire du domaine compris entre la droite et la parabole, entre leurs deux points d’intersection.',
+          'Calcule l’aire de l’espace entre la droite et la parabole, entre les deux endroits où elles se croisent.',
           `y = ${formatPolynomial([0, k])} ; y = x²`,
           k ** 3 / 6,
           [
@@ -669,7 +669,7 @@ export const yearSix: VariantMap<
       build({ int }) {
         const m = int(1, 4);
         return numeric(
-          'Calcule l’aire du domaine compris entre la parabole et l’axe des abscisses.',
+          'Calcule l’aire de l’espace entre la parabole et l’axe horizontal.',
           `f(x) = ${formatPolynomial([-m * m, 0, 1])}`,
           (4 * m ** 3) / 3,
           [

@@ -7,6 +7,7 @@ import { requestParentalConsent, saveBirthDate } from '@/app/bienvenue/actions';
 import { formatDate, todayInBrussels } from '@/lib/age';
 import type { Access } from '@/lib/parental-consent';
 import { Icon } from './icons';
+import { Mascot } from './mascot';
 
 type Message = { text: string; failed: boolean } | null;
 
@@ -54,7 +55,8 @@ export function Onboarding({ initialAccess, studentEmail }: { initialAccess: Acc
   if (access.status === 'birth_date_required') {
     return (
       <>
-        <h1>Encore une petite étape.</h1>
+        <Mascot className="auth-mascot" size={78} mood="thinking" />
+        <h1>Encore une toute petite étape.</h1>
         <p className="auth-intro">
           Indique ta date de naissance. Elle sert uniquement à savoir si ton parent doit autoriser ton compte.
         </p>
@@ -77,7 +79,8 @@ export function Onboarding({ initialAccess, studentEmail }: { initialAccess: Acc
   const consent = access.consent;
   return (
     <>
-      <h1>Ton parent doit autoriser ton compte.</h1>
+      <Mascot className="auth-mascot" size={78} />
+      <h1>Ton parent doit dire oui.</h1>
       <p className="auth-intro">
         Comme tu as moins de 13 ans, la loi belge demande l’accord de ton parent ou représentant légal avant
         d’enregistrer tes résultats. Il recevra un e-mail avec un lien pour lire les informations et donner sa réponse.

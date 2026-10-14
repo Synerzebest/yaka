@@ -8,6 +8,7 @@ import { createClient } from '@/lib/supabase/client';
 import { safeDestination } from '@/lib/navigation';
 import { todayInBrussels, validateBirthDate } from '@/lib/age';
 import { Icon } from './icons';
+import { Mascot } from './mascot';
 
 type Mode = 'login' | 'signup' | 'reset' | 'password';
 function errorMessage(code?: string) {
@@ -141,24 +142,29 @@ export function AuthForm({
         <Link className="auth-logo" href="/">
           yaka.
         </Link>
-        <div className="eyebrow">LES MATHS, À TA FAÇON</div>
+        <Mascot
+          className="auth-mascot"
+          size={78}
+          mood={mode === 'reset' || mode === 'password' ? 'thinking' : 'idle'}
+        />
+        <div className="eyebrow">Les maths, à ta façon</div>
         <h1>
           {mode === 'signup'
-            ? 'Ton premier pas commence ici.'
+            ? 'Bienvenue dans l’aventure !'
             : mode === 'reset'
-              ? 'On retrouve ton accès.'
+              ? 'Mot de passe oublié ? Ça arrive.'
               : mode === 'password'
                 ? 'Un nouveau mot de passe.'
-                : 'Heureux de te retrouver.'}
+                : 'Content de te revoir !'}
         </h1>
         <p className="auth-intro">
           {mode === 'signup'
-            ? 'Crée ton compte pour retrouver ton profil sur tous tes appareils.'
+            ? 'Ton compte garde tes progrès, sur tous tes appareils.'
             : mode === 'reset'
-              ? 'Renseigne ton adresse pour recevoir un lien de réinitialisation.'
+              ? 'Donne ton adresse e-mail : on t’envoie un lien pour en choisir un nouveau.'
               : mode === 'password'
-                ? 'Choisis un mot de passe d’au moins 8 caractères.'
-                : 'Connecte-toi à ton espace d’apprentissage.'}
+                ? 'Au moins 8 caractères. Facile à retenir pour toi, difficile à deviner pour les autres.'
+                : 'Connecte-toi pour reprendre là où tu t’étais arrêté·e.'}
         </p>
         {!configured && (
           <p className="auth-message error">

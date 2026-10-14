@@ -5,11 +5,14 @@ import { usePathname } from 'next/navigation';
 import { useState, type ReactNode } from 'react';
 import { Icon } from '@/components/icons';
 import { studentNavigation, lessonHref } from '@/lib/navigation';
+import { todayInBrussels } from '@/lib/age';
+import { currentStreak } from '@/lib/streak';
 import { useStudent } from './provider';
 
 export function StudentShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { profile, message, refresh, recommended } = useStudent();
+  const { profile, message, refresh, recommended, progress } = useStudent();
+  const streak = currentStreak(progress.days, todayInBrussels());
   const [mobile, setMobile] = useState(false);
   const [notifications, setNotifications] = useState(false);
   const current = studentNavigation.find(item => pathname === item.href || pathname.startsWith(item.href + '/'));
@@ -22,7 +25,7 @@ export function StudentShell({ children }: { children: ReactNode }) {
           </span>
           yaka<span className="logo-dot">.</span>
         </Link>
-        <div className="space-label">TON ESPACE D’APPRENTISSAGE</div>
+        <div className="space-label">Ton espace</div>
         <nav aria-label="Navigation principale">
           {studentNavigation.map(item => (
             <Link
@@ -40,13 +43,10 @@ export function StudentShell({ children }: { children: ReactNode }) {
         <div className="sidebar-bottom">
           <div className="premium-card">
             <Icon name="sparkles" />
-            <h3>Un petit pas chaque jour</h3>
-            <p>
-              Retrouve tes cours et avance
-              <br />à ton rythme.
-            </p>
-            <Link className="text-button" href="/cours" onClick={() => setMobile(false)}>
-              Explorer les cours <Icon name="arrow" size={16} />
+            <h3>Un exercice par jour</h3>
+            <p>C’est tout ce qu’il faut pour garder ta flamme 🔥 allumée.</p>
+            <Link className="text-button" href="/exercices" onClick={() => setMobile(false)}>
+              Je m’entraîne <Icon name="arrow" size={16} />
             </Link>
           </div>
           <Link className="nav-item secondary" href="/#la-methode">
@@ -82,9 +82,17 @@ export function StudentShell({ children }: { children: ReactNode }) {
             <Link href="/compte" className="text-button">
               Mon compte
             </Link>
-            <span className="belgium">
-              <i />
-              Pensé pour le secondaire belge
+            <span
+              className={`streak ${streak ? '' : 'cold'}`}
+              title={
+                streak
+                  ? `${streak} jour${streak > 1 ? 's' : ''} de maths d’affilée`
+                  : 'Réussis un exercice pour allumer ta série'
+              }
+            >
+              <span aria-hidden="true">🔥</span>
+              {streak}
+              <span className="sr-only">{streak > 1 ? ' jours d’affilée' : ' jour d’affilée'}</span>
             </span>
             <div className="notification-wrap">
               <button
@@ -124,7 +132,10 @@ export function StudentShell({ children }: { children: ReactNode }) {
               <span className="mini-logo">yaka.</span> Les maths, à ta façon.
             </span>
             <span>
-              Fait avec soin, pour tes déclics. <span className="footer-flower">✳</span>
+              Fait avec soin, pour tes déclics.{' '}
+              <span className="footer-flower" aria-hidden="true">
+                ✳
+              </span>
             </span>
             <LegalLinks />
           </footer>

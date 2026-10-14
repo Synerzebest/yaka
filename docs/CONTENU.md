@@ -17,6 +17,17 @@ Chaque parcours commence par une situation à explorer, un essai avec retour cib
 | 5e | 9 | Les suites arithmétiques, Les suites géométriques, Des degrés aux radians, Le sinus sur le cercle, Le produit scalaire, Une limite après simplification, Les limites à l’infini, Dériver une puissance, L’équation d’une tangente |
 | 6e | 9 | Les modèles exponentiels, Les logarithmes, Calculer une intégrale, Les probabilités conditionnelles, Dénombrer des choix, La loi binomiale, Centrer et réduire, Optimiser avec la dérivée, L’aire entre deux courbes |
 
+## Ton des explications
+
+Yaka ne répète pas le cours du professeur : il le reformule comme un ami patient. Pour tout nouveau texte :
+
+- **Tutoiement, phrases courtes, une idée par phrase.** Si une phrase a besoin d’une virgule et d’un point-virgule, coupe-la.
+- **Le concret d’abord, la formule ensuite.** Un parking, une tirelire, une rampe de skate… puis seulement les symboles.
+- **Chaque mot technique est traduit au moment où il apparaît** : « l’hypoténuse (le plus long côté) », « la barre | se lit “sachant que” ». Les mots du programme restent, car l’élève les retrouvera en classe.
+- **Les erreurs sont normales.** Un message d’erreur dit ce que l’élève a probablement fait, sans jugement : « Tu as compté 4 + 7, comme si tu partais du 4e étage. »
+- **Pas de jargon de prof** : éviter « univers », « substitution », « forme indéterminée », « on défait l’ajout de b ». Dire plutôt « on choisit seulement parmi… », « remplacer x », « 0/0 n’est pas égal à 0 », « défaire à l’envers ».
+- Une touche d’humour ou un emoji de temps en temps, jamais au détriment de la clarté.
+
 ## Exercices : trois modèles et trois formats par leçon
 
 Chaque leçon propose **trois modèles d’exercices** (126 au total), tirés au hasard ; l’exercice suivant évite le modèle précédent. Les réponses prennent trois formes :

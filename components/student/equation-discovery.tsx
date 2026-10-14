@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useState, type FormEvent } from 'react';
 import { parseAnswer } from '@/lib/learning';
 import { lessonHref } from '@/lib/navigation';
+import { Confetti } from '@/components/fun';
+import { Mascot } from '@/components/mascot';
 
 export function EquationDiscovery() {
   const [answer, setAnswer] = useState('');
@@ -60,13 +62,15 @@ export function EquationDiscovery() {
             maxLength={30}
           />
           <button className="primary-button" disabled={!Number.isFinite(parseAnswer(answer))}>
-            Essayer mon idée
+            Je tente !
           </button>
         </div>
       </form>
       <div aria-live="polite">
         {checked !== null && (
           <div className={`feedback ${checked === 5 ? 'correct' : 'wrong'}`}>
+            {checked === 5 && <Confetti />}
+            <Mascot mood={checked === 5 ? 'happy' : 'oops'} size={64} />
             {checked === 5 ? (
               <p>Oui ! Tes 5 billes de départ et les 7 reçues font bien 12.</p>
             ) : checked === 19 ? (

@@ -22,12 +22,12 @@ export type Topic = {
 };
 export const topics = curriculum as Topic[];
 export const yearDescriptions: Record<number, string> = {
-  1: 'Les bases : nombres, proportions et premières figures.',
-  2: 'Consolider le calcul, les équations et les mesures.',
-  3: 'Relier l’algèbre, les fonctions et la géométrie.',
-  4: 'Explorer le second degré et raisonner avec des modèles.',
-  5: 'Maths 6 h : suites, trigonométrie, vecteurs et dérivées.',
-  6: 'Maths 6 h : analyse, intégrales et probabilités avancées.',
+  1: 'Les bases : nombres, fractions, pourcentages et premières figures.',
+  2: 'Équations, aires, puissances : on prend confiance.',
+  3: 'Les lettres, les fonctions et Pythagore entrent en jeu.',
+  4: 'Second degré, trigo et probas : on passe la vitesse supérieure.',
+  5: 'Maths 6 h : suites, cercle trigo, limites et dérivées.',
+  6: 'Maths 6 h : intégrales, logarithmes et probabilités.',
 };
 export function topicsForYear(catalog: Topic[], year: number) {
   return catalog.filter(topic => topic.year === year).sort((a, b) => a.position - b.position);

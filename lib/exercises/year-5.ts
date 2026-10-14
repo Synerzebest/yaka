@@ -407,7 +407,7 @@ export const yearFive: VariantMap<
               {
                 value: 0,
                 message:
-                  'La substitution donne 0/0, une forme indéterminée. Il faut simplifier avant de passer à la limite.',
+                  'Remplacer x directement donne 0/0, et 0/0 n’est pas égal à 0 ! Simplifie d’abord, puis regarde de quoi tu t’approches.',
               },
             ],
           },
@@ -433,7 +433,7 @@ export const yearFive: VariantMap<
               {
                 value: 0,
                 message:
-                  'La substitution donne 0/0, une forme indéterminée. Factorise le numérateur par (x − a) d’abord.',
+                  'Remplacer x directement donne 0/0, et 0/0 n’est pas égal à 0 ! Factorise le haut par (x − a), puis simplifie.',
               },
             ],
           },
@@ -457,7 +457,7 @@ export const yearFive: VariantMap<
               {
                 value: 0,
                 message:
-                  'La substitution donne 0/0, une forme indéterminée. Il faut simplifier avant de passer à la limite.',
+                  'Remplacer x directement donne 0/0, et 0/0 n’est pas égal à 0 ! Simplifie d’abord, puis regarde de quoi tu t’approches.',
               },
               {
                 value: a * a,
@@ -481,8 +481,8 @@ export const yearFive: VariantMap<
           `(${a}x² + ${c}) / (${b}x² + 1)`,
           a / b,
           [
-            'Divise le numérateur et le dénominateur par x².',
-            `Les termes en 1/x² tendent vers 0. Il reste le quotient ${a}/${b}.`,
+            'Quand x devient énorme, les nombres seuls ne pèsent presque plus rien à côté des x².',
+            `Il reste en gros ${a}x² ÷ ${b}x², donc ${a}/${b}.`,
           ],
           ratio,
         );
@@ -527,7 +527,7 @@ export const yearFive: VariantMap<
           p / q,
           [
             'Numérateur et dénominateur ont le même degré, 3 : divise-les par x³.',
-            `Les autres termes tendent vers 0. Il reste ${p}/${q}.`,
+            `Quand x devient énorme, seuls les x³ comptent. Il reste ${p}/${q}.`,
           ],
           {
             ...ratio,

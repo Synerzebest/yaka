@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <title>Yaka</title>
-  <rect width="64" height="64" rx="16" fill="#38644c"/>
-  <path d="M18 19L30 38M42 19L28 46C25 51 22 52 18 50" stroke="#f8f9f6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M51 7V19M45 13H57M47 9L55 17M47 17L55 9" stroke="#b9ce9f" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M4 26C4 17 9 12 18 12H44C53 12 58 17 58 26V50C58 58 53 63 44 63H11C7 63 4 60 4 56Z" fill="#0b7a51"/>
+  <path d="M4 22C4 13 9 8 18 8H44C53 8 58 13 58 22V45C58 53 53 58 44 58H11C7 58 4 55 4 51Z" fill="#12a36d"/>
+  <path d="M19 24L30 40M41 24L28 49C26 53 22 54 18 52" stroke="#ffffff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 2V18M46 10H62M48.3 4.3L59.7 15.7M48.3 15.7L59.7 4.3" stroke="#ffc533" stroke-width="4" stroke-linecap="round"/>
 </svg>

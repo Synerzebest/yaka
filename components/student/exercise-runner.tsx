@@ -6,6 +6,8 @@ import { startExercise, submitExercise } from '@/app/exercices/actions';
 import type { ExerciseSession, PublicExercise } from '@/lib/connected-learning';
 import { formatPolynomial, parseAnswer, parsePolynomial } from '@/lib/learning';
 import { lessonHref } from '@/lib/navigation';
+import { Confetti } from '@/components/fun';
+import { Mascot } from '@/components/mascot';
 import { useStudent } from './provider';
 
 type Result = {
@@ -89,8 +91,8 @@ export function ExerciseRunner({ slug, coach }: { slug: string; coach?: string }
   return (
     <>
       <div className="exercise-header">
-        <span className="subtle-tag">À TOI DE JOUER</span>
-        <span>Autant d’essais que tu veux</span>
+        <span className="subtle-tag">À toi de jouer</span>
+        <span>Essais illimités 💪</span>
       </div>
       {error && (
         <p className="auth-message error" role="alert">
@@ -111,13 +113,14 @@ export function ExerciseRunner({ slug, coach }: { slug: string; coach?: string }
           <h3>{session.exercise.prompt}</h3>
           <div className="exercise-equation">{session.exercise.expression}</div>
           <details className="discovery-hint">
-            <summary>Retrouver une piste avant de répondre</summary>
+            <summary>Un coup de pouce avant de répondre ?</summary>
             <p>{coach || 'Que faut-il retirer du total pour retrouver le nombre de départ ?'}</p>
             <Link className="text-button" href={lessonHref(slug)}>
-              Revoir le déclic →
+              Revoir la découverte →
             </Link>
           </details>
           <form
+            className={result && !result.correct ? 'shake' : undefined}
             onSubmit={event => {
               event.preventDefault();
               void check();
@@ -230,6 +233,14 @@ function AnswerField({
   );
 }
 
+const cheers = ['Bien joué ! 🎉', 'Bingo ! 🎯', 'Exactement ça !', 'Tu gères ! 😎', 'Yes, trouvé !'];
+const encouragements = [
+  'Pas encore… mais tu chauffes !',
+  'Oups ! C’est comme ça qu’on apprend.',
+  'Presque ! On regarde ensemble ?',
+  'Raté, mais tu vas l’avoir !',
+];
+
 function Feedback({
   slug,
   exercise,
@@ -246,9 +257,19 @@ function Feedback({
   // The pilot lesson substitutes the student's value into "x + a = b".
   const equation = slug === 'equation-additive' ? exercise.expression.match(/^x \+ (\d+) = (\d+)$/) : null;
   const tried = parseAnswer(result.answer);
+  const messages = result.correct ? cheers : encouragements;
+  // Varies the message from one exercise to the next, without randomness during rendering.
+  const title = messages[(exercise.prompt.length + result.answer.length) % messages.length];
   return (
     <div className={`feedback ${result.correct ? 'correct' : 'wrong'}`}>
-      <strong>{result.correct ? 'Bien joué, tu as trouvé ! 🎉' : 'Pas encore… mais tu es là pour apprendre.'}</strong>
+      {result.correct && <Confetti />}
+      {result.correct && (
+        <span className="xp-pop" aria-hidden="true">
+          +1 ⭐
+        </span>
+      )}
+      <Mascot mood={result.correct ? 'happy' : 'oops'} size={72} />
+      <strong>{title}</strong>
       {!result.correct && equation && Number.isFinite(tried) && (
         <p>
           Testons ton idée : avec {tried} à la place de x, le côté gauche donne {tried + Number(equation[1])}. On
@@ -260,7 +281,7 @@ function Feedback({
         <div className="exercise-guidance">
           {result.guidance.observation && <p>{result.guidance.observation}</p>}
           <p>
-            <strong>Pour reprendre le fil</strong>
+            <strong>Pose-toi cette question</strong>
             <br />
             {result.guidance.question}
           </p>
@@ -270,7 +291,7 @@ function Feedback({
         </div>
       )}
       <button className="text-button" onClick={onExplain}>
-        {result.correct ? 'Comprendre pourquoi ça marche' : 'Voir le raisonnement complet'}
+        {result.correct ? 'Pourquoi ça marche ?' : 'Montre-moi la solution'}
       </button>
       {explanation && <p className="explanation-steps">{result.feedback}</p>}
     </div>
