@@ -35,7 +35,8 @@ Dans Supabase → Authentication → URL Configuration :
 
 - Site URL : `http://localhost:3000` pour le développement.
 - Redirect URLs : `http://localhost:3000/auth/callback` et `http://localhost:3000/auth/callback?next=/mot-de-passe`.
-- Lors du déploiement, ajouter les mêmes chemins avec le domaine de production et adapter la Site URL.
+- En production (domaine `yakamaths.be`) : Site URL `https://yakamaths.be`, et ajouter `https://yakamaths.be/auth/callback` et `https://yakamaths.be/auth/callback?next=/mot-de-passe` aux Redirect URLs.
+- Dans Vercel, `NEXT_PUBLIC_SITE_URL=https://yakamaths.be` et `EMAIL_FROM=Yaka <contact@yakamaths.be>` (domaine vérifié dans Resend). Redéployer après tout changement de variable.
 
 Le formulaire utilise Supabase Auth par e-mail et mot de passe. Le template e-mail Supabase par défaut, avec `{{ .ConfirmationURL }}`, est compatible avec le callback PKCE. Ouvrir alors le lien dans le navigateur ayant lancé la demande.
 
@@ -159,6 +160,6 @@ Les 42 leçons s’ouvrent sur « Le déclic », puis « L’essentiel » et « 
 
 Les routes publiques `/mentions-legales`, `/conditions-utilisation`, `/confidentialite`, `/cookies`, `/contact` et `/accessibilite` sont liées depuis l’accueil, le compte et l’espace élève. Les textes décrivent le service gratuit réellement implémenté, sans inventer de conditions d’abonnement.
 
-`content/legal-config.json` centralise les coordonnées et modalités à compléter. Le contact prévu est `contact@yaka.be` ; l’hébergeur prévu est Vercel. Les informations manquantes apparaissent comme telles. Tant que la configuration n’est pas complète et validée, les pages portent un bandeau « Version préparatoire » et une instruction `noindex`. Cela ne bloque pas techniquement les inscriptions ni le déploiement.
+`content/legal-config.json` centralise les coordonnées et modalités à compléter. Le contact prévu est `contact@yakamaths.be` ; l’hébergeur prévu est Vercel. Les informations manquantes apparaissent comme telles. Tant que la configuration n’est pas complète et validée, les pages portent un bandeau « Version préparatoire » et une instruction `noindex`. Cela ne bloque pas techniquement les inscriptions ni le déploiement.
 
 `npm run check:legal` liste les informations manquantes et retourne un code d’échec tant que les textes restent préparatoires. Les procédures concernant les mineurs, les durées de conservation, les demandes de droits et les prestataires doivent aussi être mises en place : voir [`docs/LEGAL.md`](docs/LEGAL.md). Aucun SQL n’est nécessaire pour ces pages.

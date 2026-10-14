@@ -8,6 +8,7 @@ import { formatPolynomial, parseAnswer, parsePolynomial } from '@/lib/learning';
 import { lessonHref } from '@/lib/navigation';
 import { Confetti } from '@/components/fun';
 import { Mascot } from '@/components/mascot';
+import { ExerciseSkeleton } from '@/components/skeletons';
 import { useStudent } from './provider';
 
 type Result = {
@@ -101,7 +102,7 @@ export function ExerciseRunner({ slug, coach }: { slug: string; coach?: string }
       )}
       {!session ? (
         <>
-          <p role="status">{busy ? 'Préparation de ton exercice…' : 'L’exercice n’a pas pu être chargé.'}</p>
+          {busy ? <ExerciseSkeleton /> : <p role="status">L’exercice n’a pas pu être chargé.</p>}
           {!busy && (
             <button className="outline-button" onClick={next}>
               Réessayer

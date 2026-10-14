@@ -6,6 +6,7 @@ import { updateProfile } from '@/app/compte/actions';
 import { createClient } from '@/lib/supabase/client';
 import type { Profile } from '@/lib/profile';
 import { Icon } from './icons';
+import { Select, schoolYearOptions } from './select';
 
 export function ProfileForm({ profile, onSaved }: { profile: Profile; onSaved?: (profile: Profile) => void }) {
   const router = useRouter();
@@ -42,25 +43,30 @@ export function ProfileForm({ profile, onSaved }: { profile: Profile; onSaved?: 
         Ton prénom ou pseudonyme
         <input name="display_name" defaultValue={profile.display_name} maxLength={80} required disabled={busy} />
       </label>
-      <label>
-        Ton année
-        <select name="school_year" defaultValue={profile.school_year} disabled={busy}>
-          {[1, 2, 3, 4, 5, 6].map(year => (
-            <option value={year} key={year}>
-              {year}
-              {year === 1 ? 're' : 'e'} secondaire
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Ton objectif
-        <select name="exercise_goal" defaultValue={profile.exercise_goal} disabled={busy}>
-          <option value={3}>3 exercices — un petit pas</option>
-          <option value={5}>5 exercices — un bel élan</option>
-          <option value={10}>10 exercices — en pleine forme</option>
-        </select>
-      </label>
+      <div className="field">
+        <span id="profile-year">Ton année</span>
+        <Select
+          labelledBy="profile-year"
+          name="school_year"
+          options={schoolYearOptions}
+          defaultValue={String(profile.school_year)}
+          disabled={busy}
+        />
+      </div>
+      <div className="field">
+        <span id="profile-goal">Ton objectif</span>
+        <Select
+          labelledBy="profile-goal"
+          name="exercise_goal"
+          defaultValue={String(profile.exercise_goal)}
+          disabled={busy}
+          options={[
+            { value: '3', label: '3 exercices', hint: 'Un petit pas 🌱' },
+            { value: '5', label: '5 exercices', hint: 'Un bel élan 🚀' },
+            { value: '10', label: '10 exercices', hint: 'En pleine forme 🔥' },
+          ]}
+        />
+      </div>
       <p>
         Ton prénom, ton année et ton objectif sont sauvegardés dans ton compte. Tes exercices réalisés avec ce compte
         sont également sauvegardés.

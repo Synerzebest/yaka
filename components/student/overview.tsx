@@ -5,6 +5,7 @@ import { correctForLesson, yearDescriptions, yearProgress, type Topic } from '@/
 import { lessonHref } from '@/lib/navigation';
 import { CountUp, FloatingSymbols } from '@/components/fun';
 import { Mascot } from '@/components/mascot';
+import { Select, schoolYearOptions } from '@/components/select';
 import { useStudent } from './provider';
 
 export function PageHeading({
@@ -35,25 +36,17 @@ export function PageHeading({
           </h1>
           <p>{description}</p>
         </div>
-        <label className="year-select">
-          <span>Mon année</span>
-          <div>
-            <Icon name="book" size={17} />
-            <select
-              aria-label="Année scolaire"
-              value={profile.school_year}
-              disabled={busy}
-              onChange={e => void changeYear(Number(e.target.value))}
-            >
-              {[1, 2, 3, 4, 5, 6].map(n => (
-                <option key={n} value={n}>
-                  {n}
-                  {n === 1 ? 're' : 'e'} secondaire
-                </option>
-              ))}
-            </select>
-          </div>
-        </label>
+        <div className="year-select">
+          <span id="year-select-label">Mon année</span>
+          <Select
+            labelledBy="year-select-label"
+            options={schoolYearOptions}
+            value={String(profile.school_year)}
+            disabled={busy}
+            icon={<Icon name="book" size={17} />}
+            onChange={value => void changeYear(Number(value))}
+          />
+        </div>
       </section>
       <div className="curriculum-summary">
         <span>{yearDescriptions[profile.school_year]}</span>

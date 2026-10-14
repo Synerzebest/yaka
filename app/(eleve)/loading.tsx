@@ -1,7 +1,5 @@
+import { StudentPageSkeleton } from '@/components/skeletons';
+
 export default function Loading() {
-  return (
-    <p role="status" className="account-notice">
-      Chargement de ton espace…
-    </p>
-  );
+  return <StudentPageSkeleton />;
 }
