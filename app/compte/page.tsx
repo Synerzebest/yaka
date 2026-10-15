@@ -5,7 +5,8 @@ import { createClient } from '@/lib/supabase/server';
 import { supabaseConfig } from '@/lib/supabase/config';
 import { ProfileForm, SignOutButton } from '@/components/profile-form';
 
-export default async function AccountPage() {
+export default async function AccountPage({ searchParams }: { searchParams: Promise<{ email?: string }> }) {
+  const { email: emailChange } = await searchParams;
   if (!supabaseConfig()) redirect('/connexion');
   const supabase = await createClient();
   const {
@@ -26,6 +27,12 @@ export default async function AccountPage() {
         <div className="eyebrow">À TA FAÇON</div>
         <h1>Ton espace, ton rythme.</h1>
         <p className="auth-intro">{user.email}</p>
+        {emailChange === 'modifie' && (
+          <p className="auth-message success" role="status">
+            Changement d’adresse confirmé&nbsp;! Si on te l’a aussi demandé depuis ton autre adresse, clique sur le lien
+            reçu là-bas pour terminer.
+          </p>
+        )}
         {error || !profile ? (
           <p className="auth-message error">Impossible de charger ton profil. Recharge la page pour réessayer.</p>
         ) : (
