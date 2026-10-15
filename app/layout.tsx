@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from "@vercel/analytics/next"
 import { Fredoka, Nunito } from 'next/font/google';
 import './globals.css';
 
@@ -25,7 +26,10 @@ export const viewport: Viewport = { themeColor: '#12a36d', viewportFit: 'cover' 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="fr-BE" className={`${nunito.variable} ${fredoka.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
