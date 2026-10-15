@@ -6,13 +6,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { safeDestination } from '@/lib/navigation';
-import { todayInBrussels, validateBirthDate } from '@/lib/age';
+import { validateBirthDate } from '@/lib/age';
+import { BirthDateField } from './birth-date-field';
 import { Icon } from './icons';
 import { Mascot } from './mascot';
 
 type Mode = 'login' | 'signup' | 'reset' | 'password';
-function errorMessage(code?: string) {
-  switch (code) {
+type AuthFailure = { code?: string; status?: number; message?: string };
+
+function errorMessage(error: AuthFailure) {
+  // Keep the technical details in the browser console: without them, a Supabase failure is silent.
+  console.error('[Yaka] Supabase Auth:', { code: error.code, status: error.status, message: error.message });
+  switch (error.code) {
     case 'invalid_credentials':
       return 'L’adresse e-mail ou le mot de passe est incorrect.';
     case 'email_not_confirmed':
@@ -24,9 +29,22 @@ function errorMessage(code?: string) {
       return 'Choisis un mot de passe plus long et plus difficile à deviner.';
     case 'same_password':
       return 'Choisis un mot de passe différent du précédent.';
-    default:
-      return 'La demande n’a pas abouti. Vérifie tes informations puis réessaie.';
+    case 'email_address_invalid':
+      return 'Cette adresse e-mail n’est pas acceptée. Vérifie-la ou utilise une autre adresse.';
+    case 'user_already_exists':
+    case 'email_exists':
+      return 'Un compte existe déjà avec cette adresse. Connecte-toi, ou utilise « Mot de passe oublié ».';
+    case 'signup_disabled':
+      return 'Les inscriptions sont fermées pour le moment.';
   }
+  // Supabase cannot send its e-mail (SMTP settings): the account is not created.
+  if (/sending (confirmation|recovery|magic link|email change) email/i.test(error.message ?? '')) {
+    return 'On n’arrive pas à t’envoyer l’e-mail pour le moment, donc rien n’a été créé. Réessaie dans quelques minutes.';
+  }
+  if (error.status && error.status >= 500) {
+    return 'Le service de connexion a un souci de notre côté. Réessaie dans quelques minutes.';
+  }
+  return 'La demande n’a pas abouti. Vérifie tes informations puis réessaie.';
 }
 export function AuthForm({
   configured,
@@ -70,7 +88,7 @@ export function AuthForm({
         });
         if (error) {
           setFailed(true);
-          setMessage(errorMessage(error.code));
+          setMessage(errorMessage(error));
         } else
           setMessage(
             'Si un compte correspond à cette adresse, tu recevras un lien pour choisir un nouveau mot de passe.',
@@ -79,7 +97,7 @@ export function AuthForm({
         const { error } = await supabase.auth.updateUser({ password });
         if (error) {
           setFailed(true);
-          setMessage(errorMessage(error.code));
+          setMessage(errorMessage(error));
         } else {
           router.replace('/compte');
           router.refresh();
@@ -109,7 +127,7 @@ export function AuthForm({
         });
         if (error) {
           setFailed(true);
-          setMessage(errorMessage(error.code));
+          setMessage(errorMessage(error));
         } else if (data.session) {
           router.replace(safeDestination(next));
           router.refresh();
@@ -122,7 +140,7 @@ export function AuthForm({
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) {
           setFailed(true);
-          setMessage(errorMessage(error.code));
+          setMessage(errorMessage(error));
         } else {
           router.replace(safeDestination(next));
           router.refresh();
@@ -136,135 +154,142 @@ export function AuthForm({
       setBusy(false);
     }
   }
+  const title =
+    mode === 'signup'
+      ? 'Bienvenue dans l’aventure !'
+      : mode === 'reset'
+        ? 'Mot de passe oublié ? Ça arrive.'
+        : mode === 'password'
+          ? 'Un nouveau mot de passe.'
+          : 'Content de te revoir !';
+  const intro =
+    mode === 'signup'
+      ? 'Ton compte garde tes progrès, sur tous tes appareils.'
+      : mode === 'reset'
+        ? 'Donne ton adresse e-mail : on t’envoie un lien pour en choisir un nouveau.'
+        : mode === 'password'
+          ? 'Au moins 8 caractères. Facile à retenir pour toi, difficile à deviner pour les autres.'
+          : 'Connecte-toi pour reprendre là où tu t’étais arrêté·e.';
+  // Two columns on a computer, so the whole signup form fits on screen without scrolling.
   return (
     <div className="auth-page">
-      <div className="auth-card">
-        <Link className="auth-logo" href="/">
-          yaka.
-        </Link>
-        <Mascot
-          className="auth-mascot"
-          size={78}
-          mood={mode === 'reset' || mode === 'password' ? 'thinking' : 'idle'}
-        />
-        <div className="eyebrow">Les maths, à ta façon</div>
-        <h1>
-          {mode === 'signup'
-            ? 'Bienvenue dans l’aventure !'
-            : mode === 'reset'
-              ? 'Mot de passe oublié ? Ça arrive.'
-              : mode === 'password'
-                ? 'Un nouveau mot de passe.'
-                : 'Content de te revoir !'}
-        </h1>
-        <p className="auth-intro">
-          {mode === 'signup'
-            ? 'Ton compte garde tes progrès, sur tous tes appareils.'
-            : mode === 'reset'
-              ? 'Donne ton adresse e-mail : on t’envoie un lien pour en choisir un nouveau.'
-              : mode === 'password'
-                ? 'Au moins 8 caractères. Facile à retenir pour toi, difficile à deviner pour les autres.'
-                : 'Connecte-toi pour reprendre là où tu t’étais arrêté·e.'}
-        </p>
-        {!configured && (
-          <p className="auth-message error">
-            Supabase n’est pas encore configuré. Le mode découverte reste disponible.
-          </p>
-        )}
-        {(mode === 'login' || mode === 'signup') && (
-          <div className="lesson-tabs">
-            <button disabled={busy} className={mode === 'login' ? 'selected' : ''} onClick={() => changeMode('login')}>
-              Connexion
-            </button>
-            <button
-              disabled={busy}
-              className={mode === 'signup' ? 'selected' : ''}
-              onClick={() => changeMode('signup')}
-            >
-              Créer un compte
-            </button>
-          </div>
-        )}
-        <form className="settings-form" onSubmit={submit}>
-          {mode === 'signup' && (
-            <label>
-              Ton prénom ou pseudonyme
-              <input name="name" autoComplete="given-name" required maxLength={80} disabled={busy} />
-            </label>
+      <div className="auth-card auth-split">
+        <aside className="auth-aside">
+          <Link className="auth-logo" href="/">
+            yaka.
+          </Link>
+          <div className="eyebrow">Les maths, à ta façon</div>
+          <h1>{title}</h1>
+          <p className="auth-intro">{intro}</p>
+          {(mode === 'signup' || mode === 'login') && (
+            <ul className="auth-perks">
+              <li>Gratuit et sans pub</li>
+              <li>Des explications avec des mots simples</li>
+              <li>Tes progrès sur tous tes appareils</li>
+            </ul>
           )}
-          {mode === 'signup' && (
-            <label>
-              Ta date de naissance
-              <input
-                name="birth_date"
-                type="date"
-                autoComplete="bday"
-                required
-                min="1900-01-01"
-                max={todayInBrussels()}
+          <Mascot
+            className="auth-mascot"
+            size={110}
+            mood={mode === 'reset' || mode === 'password' ? 'thinking' : 'idle'}
+          />
+        </aside>
+        <div className="auth-main">
+          {!configured && (
+            <p className="auth-message error">
+              Supabase n’est pas encore configuré. Le mode découverte reste disponible.
+            </p>
+          )}
+          {(mode === 'login' || mode === 'signup') && (
+            <div className="lesson-tabs">
+              <button
                 disabled={busy}
-              />
-            </label>
-          )}
-          {mode !== 'password' && (
-            <label>
-              Ton adresse e-mail
-              <input name="email" type="email" autoComplete="email" required maxLength={254} disabled={busy} />
-            </label>
-          )}
-          {mode !== 'reset' && (
-            <label>
-              Ton mot de passe
-              <input
-                name="password"
-                type="password"
-                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                minLength={mode === 'login' ? undefined : 8}
-                required
+                className={mode === 'login' ? 'selected' : ''}
+                onClick={() => changeMode('login')}
+              >
+                Connexion
+              </button>
+              <button
                 disabled={busy}
-              />
-            </label>
-          )}
-          {mode === 'signup' && (
-            <div className="signup-legal-note">
-              <p>
-                Ton e-mail sert à gérer ton compte ; ton prénom ou pseudonyme et tes résultats servent à retrouver ton
-                parcours. Consulte les <Link href="/conditions-utilisation">conditions d’utilisation</Link> et la{' '}
-                <Link href="/confidentialite">politique de confidentialité</Link> avant de créer ton compte.
-              </p>
-              <p>
-                Si tu es mineur, lis ces informations avec ton parent ou représentant légal. Si tu as moins de 13 ans,
-                ton compte devra être autorisé par ton parent : après l’inscription, tu pourras lui envoyer une demande
-                par e-mail.
-              </p>
+                className={mode === 'signup' ? 'selected' : ''}
+                onClick={() => changeMode('signup')}
+              >
+                Créer un compte
+              </button>
             </div>
           )}
-          <div aria-live="polite">
-            {message && <p className={`auth-message ${failed ? 'error' : 'success'}`}>{message}</p>}
-          </div>
-          <button className="primary-button" disabled={busy || !configured}>
-            {busy
-              ? 'Un petit instant…'
-              : mode === 'signup'
-                ? 'Créer mon compte'
-                : mode === 'reset'
-                  ? 'Recevoir un lien'
-                  : mode === 'password'
-                    ? 'Enregistrer mon mot de passe'
-                    : 'Me connecter'}
-            <Icon name="arrow" size={16} />
-          </button>
-        </form>
-        {mode === 'login' && (
-          <button className="text-button auth-switch" disabled={busy} onClick={() => changeMode('reset')}>
-            Mot de passe oublié ?
-          </button>
-        )}
-        {mode === 'reset' && (
-          <button className="text-button auth-switch" disabled={busy} onClick={() => changeMode('login')}>
-            Retour à la connexion
-          </button>
-        )}
+          <form className="settings-form" onSubmit={submit}>
+            {mode === 'signup' && (
+              <label>
+                Ton prénom ou pseudonyme
+                <input name="name" autoComplete="given-name" required maxLength={80} disabled={busy} />
+              </label>
+            )}
+            {mode === 'signup' && (
+              <div className="field">
+                <span id="signup-birth-date">Ta date de naissance</span>
+                <BirthDateField labelId="signup-birth-date" disabled={busy} />
+              </div>
+            )}
+            <div className={mode === 'signup' ? 'form-row' : 'form-stack'}>
+              {mode !== 'password' && (
+                <label>
+                  Ton adresse e-mail
+                  <input name="email" type="email" autoComplete="email" required maxLength={254} disabled={busy} />
+                </label>
+              )}
+              {mode !== 'reset' && (
+                <label>
+                  Ton mot de passe
+                  <input
+                    name="password"
+                    type="password"
+                    autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                    minLength={mode === 'login' ? undefined : 8}
+                    placeholder={mode === 'login' ? undefined : '8 caractères minimum'}
+                    required
+                    disabled={busy}
+                  />
+                </label>
+              )}
+            </div>
+            {mode === 'signup' && (
+              <p className="signup-legal-note">
+                En créant ton compte, tu acceptes les{' '}
+                <Link href="/conditions-utilisation">conditions d’utilisation</Link>. Ton e-mail, ton pseudo et tes
+                résultats servent seulement à faire fonctionner ton compte (
+                <Link href="/confidentialite">confidentialité</Link>). Tu es mineur ? Lis-les avec ton parent.
+              </p>
+            )}
+            <div aria-live="polite">
+              {message && <p className={`auth-message ${failed ? 'error' : 'success'}`}>{message}</p>}
+            </div>
+            <button className="primary-button" disabled={busy || !configured}>
+              {busy
+                ? 'Un petit instant…'
+                : mode === 'signup'
+                  ? 'Créer mon compte'
+                  : mode === 'reset'
+                    ? 'Recevoir un lien'
+                    : mode === 'password'
+                      ? 'Enregistrer mon mot de passe'
+                      : 'Me connecter'}
+              <Icon name="arrow" size={16} />
+            </button>
+          </form>
+          {mode === 'login' && (
+            <button className="text-button auth-switch" disabled={busy} onClick={() => changeMode('reset')}>
+              Mot de passe oublié ?
+            </button>
+          )}
+          {mode === 'reset' && (
+            <button className="text-button auth-switch" disabled={busy} onClick={() => changeMode('login')}>
+              Retour à la connexion
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="auth-below">
         <Link className="auth-back" href="/">
           ← Revenir à l’accueil
         </Link>

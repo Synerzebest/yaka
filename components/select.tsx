@@ -29,6 +29,8 @@ type Props = {
   disabled?: boolean;
   icon?: ReactNode;
   className?: string;
+  /** Shown while no option is chosen. Without it, the first option is selected by default. */
+  placeholder?: string;
 };
 
 /**
@@ -47,14 +49,15 @@ export function Select({
   disabled = false,
   icon,
   className = '',
+  placeholder,
 }: Props) {
   const id = useId();
-  const [internal, setInternal] = useState(defaultValue ?? options[0]?.value ?? '');
+  const [internal, setInternal] = useState(defaultValue ?? (placeholder ? '' : (options[0]?.value ?? '')));
   const selected = value ?? internal;
-  const selectedIndex = Math.max(
-    0,
-    options.findIndex(option => option.value === selected),
-  );
+  const found = options.findIndex(option => option.value === selected);
+  // With a placeholder and no value yet, nothing is selected; keyboard navigation starts at the top.
+  const selectedIndex = Math.max(0, found);
+  const empty = found < 0 && !!placeholder;
   const [open, setOpen] = useState(false);
   // The list stays on screen while its closing animation plays; `open` alone drives the ARIA state.
   const [visible, setVisible] = useState(false);
@@ -157,7 +160,7 @@ export function Select({
     }
   }
 
-  const current = options[selectedIndex];
+  const current = empty ? undefined : options[selectedIndex];
   return (
     <div ref={root} className={`yaka-select ${open ? 'open' : ''} ${upward ? 'upward' : ''} ${className}`}>
       {name && <input type="hidden" name={name} value={selected} />}
@@ -177,8 +180,8 @@ export function Select({
         onKeyDown={onKeyDown}
       >
         {icon && <span className="yaka-select-icon">{icon}</span>}
-        <span className="yaka-select-value" id={`${id}-value`}>
-          {current?.label}
+        <span className={`yaka-select-value ${empty ? 'placeholder' : ''}`} id={`${id}-value`}>
+          {current?.label ?? placeholder}
         </span>
         <Icon name="chevron" size={16} className="yaka-select-chevron" />
       </button>

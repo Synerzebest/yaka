@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import { requestParentalConsent, saveBirthDate } from '@/app/bienvenue/actions';
-import { formatDate, todayInBrussels } from '@/lib/age';
+import { formatDate } from '@/lib/age';
 import type { Access } from '@/lib/parental-consent';
 import { Icon } from './icons';
 import { Mascot } from './mascot';
+import { BirthDateField } from './birth-date-field';
 
 type Message = { text: string; failed: boolean } | null;
 
@@ -61,10 +62,10 @@ export function Onboarding({ initialAccess, studentEmail }: { initialAccess: Acc
           Indique ta date de naissance. Elle sert uniquement à savoir si ton parent doit autoriser ton compte.
         </p>
         <form className="settings-form" onSubmit={event => submit(event, saveBirthDate)}>
-          <label>
-            Ta date de naissance
-            <input name="birth_date" type="date" required min="1900-01-01" max={todayInBrussels()} disabled={busy} />
-          </label>
+          <div className="field">
+            <span id="welcome-birth-date">Ta date de naissance</span>
+            <BirthDateField labelId="welcome-birth-date" disabled={busy} />
+          </div>
           <p>Vérifie-la bien : elle ne pourra plus être modifiée depuis ton compte.</p>
           {feedback}
           <button className="primary-button" disabled={busy}>

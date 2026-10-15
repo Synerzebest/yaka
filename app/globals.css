@@ -1696,3 +1696,105 @@ main { max-width: 1400px; margin: 0 auto; padding: 32px 36px 0; }
   .skeleton { animation: none !important; background: #f3e5cf; }
   .skeleton-dark { background: #2b3542; }
 }
+
+/* Birth date: day / month / year with Yaka selects (components/birth-date-field.tsx). */
+.birth-date { display: grid; gap: 8px; }
+.birth-date-selects { display: grid; grid-template-columns: .9fr 1.5fr 1.15fr; gap: 8px; }
+.birth-date .yaka-select-button { padding: 0 12px; gap: 6px; }
+.birth-date .yaka-select-list { min-width: 100%; }
+.birth-date .yaka-select:nth-child(2) .yaka-select-list { min-width: 160px; }
+.birth-date .yaka-select:last-child .yaka-select-list { left: auto; right: 0; }
+.yaka-select-value.placeholder { color: #9aa3ad; font-weight: 700; }
+.birth-date-note {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px !important;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--muted) !important;
+  transition: background .3s, color .3s;
+}
+.birth-date-note.ok { background: var(--brand-soft); color: var(--brand-dark) !important; animation: pop .35s var(--spring); }
+.birth-date-note.parent { background: var(--sun-soft); color: #6b4b00 !important; animation: pop .35s var(--spring); }
+@media (max-width: 380px) {
+  .birth-date-selects { grid-template-columns: .85fr 1.45fr 1.1fr; gap: 6px; }
+  .birth-date .yaka-select-button { padding: 0 9px; font-size: 15px; }
+  .birth-date .yaka-select-chevron { width: 13px; }
+}
+
+/* Login / signup: two columns on a computer so the whole form fits on screen (components/auth-form.tsx). */
+.auth-page { flex-direction: column; }
+.auth-split {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  max-width: 940px;
+  padding: 0;
+  overflow: hidden;
+}
+.auth-aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 30px 24px;
+  background: linear-gradient(160deg, var(--brand) 0%, #1bb87d 55%, var(--brand-bright) 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.auth-aside::before { content: ''; position: absolute; width: 260px; height: 260px; right: -110px; bottom: -110px; border-radius: 50%; background: rgb(255 255 255 / .12); }
+.auth-aside > * { position: relative; }
+.auth-aside .auth-logo { margin-bottom: 18px; color: #fff; }
+.auth-aside .eyebrow { color: var(--sun); }
+.auth-aside h1 { padding-right: 0; font-size: 31px; color: #fff; }
+.auth-aside .auth-intro { color: rgb(255 255 255 / .92); }
+.auth-perks { display: grid; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; font-weight: 800; }
+.auth-perks li { display: flex; align-items: center; gap: 10px; }
+.auth-perks li::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--sun);
+  color: var(--ink);
+  font-size: 13px;
+}
+.auth-aside .auth-mascot { position: relative; top: auto; right: auto; align-self: flex-end; margin-top: auto; padding-top: 16px; }
+.auth-main { display: flex; flex-direction: column; justify-content: center; padding: 28px 32px; }
+.auth-split .lesson-tabs { margin: 0; }
+.auth-split .settings-form { gap: 14px; margin-top: 18px; }
+.auth-split .settings-form label, .auth-split .settings-form .field { gap: 6px; }
+.auth-split input:not([type=checkbox]):not([type=radio]) { padding: 11px 14px; }
+.auth-split .yaka-select-button { min-height: 46px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-stack { display: grid; gap: 14px; }
+.auth-split .signup-legal-note { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.auth-split .auth-switch { margin-top: 14px; }
+.birth-date-note:empty { display: none; }
+.auth-below { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 18px; text-align: center; }
+.auth-below .auth-back { margin: 0; }
+.auth-below .legal-links { justify-content: center; font-size: 13px; }
+@media (max-width: 860px) {
+  .auth-split { grid-template-columns: 1fr; max-width: 520px; }
+  .auth-aside { padding: 22px 22px 18px; }
+  .auth-aside .auth-logo { margin-bottom: 8px; font-size: 30px; }
+  .auth-aside .eyebrow, .auth-perks { display: none; }
+  .auth-aside h1 { font-size: 25px; padding-right: 76px; }
+  .auth-aside .auth-intro { margin-top: 6px; font-size: 15px; padding-right: 60px; }
+  .auth-aside .auth-mascot { position: absolute; top: 14px; right: 14px; width: 70px; height: 70px; margin: 0; padding: 0; }
+  .auth-main { padding: 20px; }
+}
+@media (max-width: 760px) {
+  .auth-page { padding-top: calc(14px + env(safe-area-inset-top)); }
+  .auth-split { border-radius: 24px; }
+  .form-row { grid-template-columns: 1fr; gap: 14px; }
+  .auth-aside { padding: 18px 20px 16px; }
+  .auth-aside .auth-intro { display: none; }
+  .auth-aside h1 { font-size: 23px; }
+  .auth-aside .auth-mascot { top: 10px; width: 60px; height: 60px; }
+  .auth-main { padding: 18px 18px 20px; }
+  .auth-split .settings-form { gap: 12px; margin-top: 14px; }
+}
